@@ -1,9 +1,26 @@
 services:
   - type: web
+    name: hostel-energy-backend
+    runtime: python
+    pythonVersion: "3.11.9"
+    buildCommand: pip install -r MLmodel/requirements.txt
+    startCommand: gunicorn --chdir MLmodel app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://dhanaseelan707:Dhanaseelan@cluster0.enwyuqj.mongodb.net/?appName=Cluster0
+      - key: JWT_SECRET
+        value: energyiq_prod_secret_2025
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+
+  - type: web
     name: hostel-energy-frontend
     runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
     routes:
       - type: rewrite
         source: /*
