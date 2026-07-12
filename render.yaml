@@ -2,11 +2,9 @@ services:
   - type: web
     name: hostel-energy-backend
     runtime: python
+    pythonVersion: "3.11.9"
     buildCommand: pip install -r MLmodel/requirements.txt
     startCommand: cd MLmodel && gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
 
   - type: web
     name: hostel-energy-frontend
