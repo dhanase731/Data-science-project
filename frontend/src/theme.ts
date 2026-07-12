@@ -99,19 +99,21 @@ const theme = createTheme({
           "&:hover": { boxShadow: "none", transform: "translateY(-1px)" },
           "&:active": { transform: "translateY(0)" },
         },
-        containedPrimary: {
-          background: `linear-gradient(135deg, ${P.indigo} 0%, ${P.indigoLight} 100%)`,
-          boxShadow: `0 2px 8px ${alpha(P.indigo, 0.25)}`,
-          "&:hover": {
-            background: `linear-gradient(135deg, #4338CA 0%, ${P.indigo} 100%)`,
-            boxShadow: `0 4px 14px ${alpha(P.indigo, 0.35)}`,
+        contained: {
+          "&.MuiButton-containedPrimary": {
+            background: `linear-gradient(135deg, ${P.indigo} 0%, ${P.indigoLight} 100%)`,
+            boxShadow: `0 2px 8px ${alpha(P.indigo, 0.25)}`,
+            "&:hover": {
+              background: `linear-gradient(135deg, #4338CA 0%, ${P.indigo} 100%)`,
+              boxShadow: `0 4px 14px ${alpha(P.indigo, 0.35)}`,
+            },
           },
-        },
-        containedSecondary: {
-          background: `linear-gradient(135deg, ${P.emerald} 0%, ${P.emeraldLight} 100%)`,
-          boxShadow: `0 2px 8px ${alpha(P.emerald, 0.25)}`,
-          "&:hover": {
-            boxShadow: `0 4px 14px ${alpha(P.emerald, 0.35)}`,
+          "&.MuiButton-containedSecondary": {
+            background: `linear-gradient(135deg, ${P.emerald} 0%, ${P.emeraldLight} 100%)`,
+            boxShadow: `0 2px 8px ${alpha(P.emerald, 0.25)}`,
+            "&:hover": {
+              boxShadow: `0 4px 14px ${alpha(P.emerald, 0.35)}`,
+            },
           },
         },
         outlined: {
