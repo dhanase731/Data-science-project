@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: hostel-energy-backend
+    runtime: python
+    buildCommand: pip install -r MLmodel/requirements.txt
+    startCommand: cd MLmodel && gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+  - type: web
+    name: hostel-energy-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
