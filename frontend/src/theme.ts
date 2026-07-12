@@ -98,8 +98,6 @@ const theme = createTheme({
           transition: "all 0.15s ease",
           "&:hover": { boxShadow: "none", transform: "translateY(-1px)" },
           "&:active": { transform: "translateY(0)" },
-        },
-        contained: {
           "&.MuiButton-containedPrimary": {
             background: `linear-gradient(135deg, ${P.indigo} 0%, ${P.indigoLight} 100%)`,
             boxShadow: `0 2px 8px ${alpha(P.indigo, 0.25)}`,
