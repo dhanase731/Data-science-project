@@ -1,0 +1,1060 @@
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [11/Jul/2026 16:17:02] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:02] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:02] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:02] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:08] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:10] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:13] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:13] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:21] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:23] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:26] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:17:34] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:36] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:17:36] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:00] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:02] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:08] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:08] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:08] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:08] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:10] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:14] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:14] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:16] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:18] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:19] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:26] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:27] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:32] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:33] "GET / HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:33] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:36] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:44] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:44] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:44] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:44] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:19:50] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:55] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:19:55] "GET /alerts HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:20:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:20:11] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:20:23] "POST /predict HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:57] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:21:58] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:21:58] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:58] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:21:58] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:21:59] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:17] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:20] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:20] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:22] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:22] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:22:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:48] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:22:48] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:23:16] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:23:18] "POST /predict HTTP/1.1" 200 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Exception in thread Thread-2 (serve_forever):
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [11/Jul/2026 16:25:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:25:48] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:25:55] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:55] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:55] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:25:56] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:25:58] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:25:58] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:01] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:02] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:02] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:05] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:06] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:06] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:26:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:26:20] "GET / HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:46] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:47:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 16:47:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:47:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 16:47:48] "GET /dashboard HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [11/Jul/2026 17:46:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:18] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:19] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:25] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:25] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:25] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:27] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:27] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:28] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:28] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:28] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:46:30] "OPTIONS /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:46:30] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:47:44] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:47:44] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:47:44] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:47:44] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [11/Jul/2026 17:48:06] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:48:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [11/Jul/2026 17:49:01] "GET / HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 08:43:55] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:43:55] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:43:55] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:43:55] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:43:56] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:43:56] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:43:56] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:43:56] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:44:05] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 08:44:10] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 08:44:11] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:03:57] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:03:58] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:12:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:12:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:12:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:13:03] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:13:04] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:13:04] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:22:07] "GET /dashboard HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a530663806abc5ac06e6a11, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 09:59:31] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:59:31] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:59:31] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:59:31] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:59:31] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:59:31] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 09:59:32] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 09:59:32] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:03:32] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:03:33] "GET /dashboard HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a531826d36cf99e46df403a, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a5319e4917ba72010c1e77b, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 10:07:21] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:07:21] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:07:22] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:07:22] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:17:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:17:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:17:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:17:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:17:27] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:17:27] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:17:27] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:17:27] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:01] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:21:02] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:21:23] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:21:24] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:21:24] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:38] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:39] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:39] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:39] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:42] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:42] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:42] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:43] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:45] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:45] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:45] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:45] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:46] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:46] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:46] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:27:46] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:48] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:48] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:49] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:49] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:51] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:52] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:27:55] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:03] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:04] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:13] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:13] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:13] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:13] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:25] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:25] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:25] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:25] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:26] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:26] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:27] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:27] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:28] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:28] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:28] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:29] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:48] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:50] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:50] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:28:51] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:51] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:51] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:28:52] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:29:10] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:19] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:19] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:19] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:19] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:21] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:22] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:24] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:24] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:24] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:24] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:25] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:25] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:25] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:25] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:29:41] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:29:42] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:05] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:05] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:07] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:07] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:07] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:07] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:08] "GET /dashboard HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:08] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "GET /alerts/stats HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "GET /alerts HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:11] "GET /alerts/stats HTTP/1.1" 401 -
+127.0.0.1 - - [12/Jul/2026 10:30:34] "OPTIONS /auth/login HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:30:35] "POST /auth/login HTTP/1.1" 503 -
+127.0.0.1 - - [12/Jul/2026 10:32:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:10] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:10] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:10] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:11] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:11] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:11] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:11] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:15] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:15] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:16] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:16] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:16] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:17] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:18] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:19] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:20] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:20] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:20] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:20] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:21] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:22] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:23] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:24] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:24] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:24] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:24] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:25] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:25] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:25] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:25] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:26] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:26] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:26] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:26] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:28] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:28] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:28] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:28] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:32:29] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:32:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:06] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:07] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:07] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:24] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:25] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:37:41] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:40:15] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:42:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:48] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:42:48] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:48] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:42:48] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:50] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:42:51] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:42:52] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:52] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:52] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:53] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:55] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:56] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:57] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:42:59] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:43:00] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:43:00] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:43:00] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:43:00] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:43:00] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:17] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:44] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:54] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:54] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:54] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:54] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:54] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:55] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:46:55] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:46:55] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:47:19] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:45] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:45] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:45] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:45] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:46] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:46] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:46] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:47:46] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:47:47] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:47:48] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:10] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:11] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:11] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:11] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:13] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:14] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:14] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:14] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:15] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:15] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:16] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:17] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:18] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:18] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:18] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:48:19] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:48:19] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:05] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:05] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:06] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:07] "OPTIONS /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:07] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:07] "GET /analytics HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "OPTIONS /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:09] "GET /reports HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:10] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:10] "OPTIONS /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:10] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:11] "GET /recommendations HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:11] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "OPTIONS /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:12] "GET /alerts/stats HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:13] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:13] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:13] "OPTIONS /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:13] "OPTIONS /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:14] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:14] "GET /auth/me HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:14] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:14] "GET /model/info HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:15] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:16] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:16] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 10:51:16] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 10:51:16] "GET /dashboard HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a5319ecbb4cbfccc19271a5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 11:02:43] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:02:43] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:02:43] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:02:43] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:02:45] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:02:45] "GET /dashboard HTTP/1.1" 500 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a53263d719a8d3b79a8fb76, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 11:21:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:21:30] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:29] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:24:30] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "OPTIONS /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /dashboard HTTP/1.1" 500 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 11:29:09] "GET /alerts HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 12:08:34] "OPTIONS /auth/register HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 12:08:34] "POST /auth/register HTTP/1.1" 503 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a532818e4f2b1564d44c30c, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a533b53ff014f8887ce0152, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+ * Debugger is active!
+ * Debugger PIN: 141-075-621
+127.0.0.1 - - [12/Jul/2026 15:10:41] "OPTIONS /auth/register HTTP/1.1" 200 -
+127.0.0.1 - - [12/Jul/2026 15:10:41] "POST /auth/register HTTP/1.1" 503 -
+ * Detected change in 'd:\\Data science project\\MLmodel\\app.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\convert.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_alerts.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\seed_db.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_fix.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\test_predict.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train.py', reloading
+ * Detected change in 'd:\\Data science project\\MLmodel\\train_light.py', reloading
+Warning: MongoDB not available (localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a535aba041c9d9b623567e1, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>). Start MongoDB service to enable full functionality.
+Exception in thread Thread-2 (serve_forever):
+Traceback (most recent call last):
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 1041, in _bootstrap_inner
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\threading.py", line 992, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\site-packages\werkzeug\serving.py", line 819, in serve_forever
+    super().serve_forever(poll_interval=poll_interval)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\socketserver.py", line 235, in serve_forever
+    ready = selector.select(poll_interval)
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 314, in select
+    r, w, _ = self._select(self._readers, self._writers, [], timeout)
+              ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\Lib\selectors.py", line 305, in _select
+    r, w, x = select.select(r, w, w, timeout)
+              ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+OSError: [WinError 10038] An operation was attempted on something that is not a socket
+ * Restarting with watchdog (windowsapi)
+C:\Users\DHANASEELAN\AppData\Local\Programs\Python\Python313\python.exe: can't open file 'd:\\Data science project\\MLmodel\\app.py': [Errno 2] No such file or directory
