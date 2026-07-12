@@ -1031,5 +1031,17 @@ def health():
     })
 
 
+@app.route("/debug/mongo", methods=["GET"])
+def debug_mongo():
+    uri = os.environ.get("MONGO_URI", "not_set")
+    masked = uri[:30] + "..." if len(uri) > 30 else uri
+    try:
+        test_client = MongoClient(uri, serverSelectionTimeoutMS=8000)
+        test_client.admin.command("ping")
+        return jsonify({"status": "ok", "uri_prefix": masked, "mongo_available": mongo_available})
+    except Exception as e:
+        return jsonify({"status": "failed", "error": str(e), "uri_prefix": masked, "mongo_available": mongo_available})
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
