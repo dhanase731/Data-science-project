@@ -4,7 +4,12 @@ services:
     runtime: python
     pythonVersion: "3.11.9"
     buildCommand: pip install -r MLmodel/requirements.txt
-    startCommand: cd MLmodel && gunicorn app:app
+    startCommand: gunicorn --chdir MLmodel app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
 
   - type: web
     name: hostel-energy-frontend
