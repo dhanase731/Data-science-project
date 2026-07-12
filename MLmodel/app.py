@@ -63,6 +63,9 @@ MONTH_ORDER = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 WEEKLY_FACTORS = {"Mon": 0.95, "Tue": 0.88, "Wed": 1.02, "Thu": 1.10,
                   "Fri": 1.18, "Sat": 0.92, "Sun": 0.75}
 
+# ── In-memory fallback store (used when MongoDB is unavailable) ───────────────
+_predictions_store = []  # list of prediction dicts
+
 # ── MongoDB ───────────────────────────────────────────────────────────────────
 mongo_available = False
 client = None
@@ -190,29 +193,49 @@ def get_monthly_stats(df):
 
 def get_predictions_by_month(user_id):
     """Return stored ML predictions grouped by month with kwh, bill, carbon."""
-    if not mongo_available:
-        return {}
-    pipeline = [
-        {"$match": {"user_id": user_id}},
-        {"$group": {
-            "_id": "$month",
-            "kwh": {"$avg": "$result.kwh"},
-            "bill": {"$avg": "$result.bill"},
-            "carbon": {"$avg": "$result.carbon"},
-            "count": {"$sum": 1},
-        }},
-    ]
-    result = {}
-    for doc in predictions_col.aggregate(pipeline):
-        month = doc["_id"]
-        if month:
-            result[month[:3]] = {
-                "kwh": round(doc["kwh"]),
-                "bill": round(doc["bill"]),
-                "carbon": round(doc["carbon"]),
-                "count": doc["count"],
-            }
-    return result
+    if mongo_available:
+        pipeline = [
+            {"$match": {"user_id": user_id}},
+            {"$group": {
+                "_id": "$month",
+                "kwh": {"$avg": "$result.kwh"},
+                "bill": {"$avg": "$result.bill"},
+                "carbon": {"$avg": "$result.carbon"},
+                "count": {"$sum": 1},
+            }},
+        ]
+        result = {}
+        for doc in predictions_col.aggregate(pipeline):
+            month = doc["_id"]
+            if month:
+                result[month[:3]] = {
+                    "kwh": round(doc["kwh"]),
+                    "bill": round(doc["bill"]),
+                    "carbon": round(doc["carbon"]),
+                    "count": doc["count"],
+                }
+        return result
+    # fallback: aggregate from in-memory store
+    grouped = {}
+    for p in _predictions_store:
+        if p["user_id"] != user_id:
+            continue
+        m = p["month"][:3]
+        r = p["result"]
+        if m not in grouped:
+            grouped[m] = {"kwh": [], "bill": [], "carbon": []}
+        grouped[m]["kwh"].append(r["kwh"])
+        grouped[m]["bill"].append(r["bill"])
+        grouped[m]["carbon"].append(r["carbon"])
+    return {
+        m: {
+            "kwh": round(sum(v["kwh"]) / len(v["kwh"])),
+            "bill": round(sum(v["bill"]) / len(v["bill"])),
+            "carbon": round(sum(v["carbon"]) / len(v["carbon"])),
+            "count": len(v["kwh"]),
+        }
+        for m, v in grouped.items()
+    }
 
 
 def compute_distribution(df):
@@ -604,6 +627,8 @@ def predict():
     }
     if mongo_available:
         predictions_col.insert_one(prediction_record)
+    else:
+        _predictions_store.append(prediction_record)
 
     return jsonify({
         "kwh": predicted_kwh,
@@ -850,7 +875,10 @@ def dashboard():
             kpi_changes["billPositive"] = p >= 0
 
     try:
-        pred_count = predictions_col.count_documents({"user_id": user_id}) if mongo_available else 0
+        if mongo_available:
+            pred_count = predictions_col.count_documents({"user_id": user_id})
+        else:
+            pred_count = sum(1 for p in _predictions_store if p["user_id"] == user_id)
     except Exception:
         pred_count = 0
 
