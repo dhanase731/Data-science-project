@@ -191,47 +191,35 @@ def get_monthly_stats(df):
     return monthly
 
 
+def get_all_predictions(user_id):
+    """Return all raw prediction records for a user."""
+    if mongo_available:
+        return list(predictions_col.find(
+            {"user_id": user_id},
+            {"_id": 0, "month": 1, "hostel": 1, "season": 1, "result": 1, "inputs": 1, "created_at": 1}
+        ).sort("created_at", 1))
+    return [p for p in _predictions_store if p["user_id"] == user_id]
+
+
 def get_predictions_by_month(user_id):
     """Return stored ML predictions grouped by month with kwh, bill, carbon."""
-    if mongo_available:
-        pipeline = [
-            {"$match": {"user_id": user_id}},
-            {"$group": {
-                "_id": "$month",
-                "kwh": {"$avg": "$result.kwh"},
-                "bill": {"$avg": "$result.bill"},
-                "carbon": {"$avg": "$result.carbon"},
-                "count": {"$sum": 1},
-            }},
-        ]
-        result = {}
-        for doc in predictions_col.aggregate(pipeline):
-            month = doc["_id"]
-            if month:
-                result[month[:3]] = {
-                    "kwh": round(doc["kwh"]),
-                    "bill": round(doc["bill"]),
-                    "carbon": round(doc["carbon"]),
-                    "count": doc["count"],
-                }
-        return result
-    # fallback: aggregate from in-memory store
+    records = get_all_predictions(user_id)
     grouped = {}
-    for p in _predictions_store:
-        if p["user_id"] != user_id:
-            continue
+    for p in records:
         m = p["month"][:3]
         r = p["result"]
         if m not in grouped:
-            grouped[m] = {"kwh": [], "bill": [], "carbon": []}
+            grouped[m] = {"kwh": [], "bill": [], "carbon": [], "confidence": []}
         grouped[m]["kwh"].append(r["kwh"])
         grouped[m]["bill"].append(r["bill"])
         grouped[m]["carbon"].append(r["carbon"])
+        grouped[m]["confidence"].append(r.get("confidence", 88))
     return {
         m: {
             "kwh": round(sum(v["kwh"]) / len(v["kwh"])),
             "bill": round(sum(v["bill"]) / len(v["bill"])),
             "carbon": round(sum(v["carbon"]) / len(v["carbon"])),
+            "confidence": round(sum(v["confidence"]) / len(v["confidence"])),
             "count": len(v["kwh"]),
         }
         for m, v in grouped.items()
@@ -593,15 +581,18 @@ def predict():
     df = get_energy_df()
     month_short = month[:3]
     month_data = df[df["Month"] == month_short]["Monthly_Electricity_kWh"] if not df.empty else pd.Series()
+    # Compute confidence from model R² and prediction deviation
+    model_r2 = numpy_model["metrics"]["r2"] if numpy_model else 0.85
+    base_confidence = round(model_r2 * 100)
     if len(month_data) > 0:
         mean_kwh = month_data.mean()
-        std_kwh = month_data.std() if month_data.std() > 0 else 1
+        std_kwh = month_data.std() if month_data.std() > 0 else mean_kwh * 0.1
         z = abs(predicted_kwh - mean_kwh) / std_kwh
-        confidence = max(70, min(98, round(95 - z * 5)))
+        confidence = max(70, min(base_confidence, round(base_confidence - z * 2)))
         pct = ((predicted_kwh - mean_kwh) / mean_kwh) * 100
         trend = f"{'+' if pct >= 0 else ''}{pct:.1f}%"
     else:
-        confidence = 88
+        confidence = base_confidence
         trend = "0.0%"
 
     bill = round(predicted_kwh * tariff)
@@ -908,13 +899,87 @@ def dashboard():
 @app.route("/analytics", methods=["GET"])
 @token_required
 def analytics():
+    user_id = request.user["user_id"]
+    records = get_all_predictions(user_id)
     df = get_energy_df()
+
+    # Monthly trend from predictions
+    pred_by_month = get_predictions_by_month(user_id)
+    monthly = [
+        {"month": m, "consumption": pred_by_month[m]["kwh"], "bill": pred_by_month[m]["bill"]}
+        for m in MONTH_ORDER if m in pred_by_month
+    ]
+
+    # Weekly from predictions avg / 30 with day factors
+    if records:
+        avg_kwh = sum(p["result"]["kwh"] for p in records) / len(records)
+        weekly = [{"day": day, "kwh": round(avg_kwh / 30 * factor)} for day, factor in WEEKLY_FACTORS.items()]
+    else:
+        weekly = compute_weekly(df)
+
+    # Season from predictions
+    season_map_pred = {}
+    for p in records:
+        s = p.get("season", "Summer")
+        kwh = p["result"]["kwh"]
+        season_map_pred.setdefault(s, []).append(kwh)
+    season_data = [
+        {
+            "season": s,
+            "block_a": round(np.percentile(vals, 75)),
+            "block_b": round(np.percentile(vals, 50)),
+            "block_c": round(np.percentile(vals, 25)),
+        }
+        for s, vals in season_map_pred.items()
+    ] if season_map_pred else compute_season_data(df)
+
+    # Top consumers from prediction inputs
+    if records:
+        inp = records[-1].get("inputs", {})
+        avg_kwh = sum(p["result"]["kwh"] for p in records) / len(records)
+        tariff = float(inp.get("tariff", 4.5))
+        ac = float(inp.get("ac_units", 60))
+        lights = float(inp.get("lights", 360))
+        fans = float(inp.get("fans", 240))
+        water_pumps = 3.0
+        washing = max(1, int(inp.get("rooms", 120)) // 20)
+        raw = [ac * 3, lights * 1.5, fans * 0.8, water_pumps * 2, washing * 1.2]
+        raw_sum = sum(raw) or 1
+        categories = [("Air Conditioning", raw[0]), ("Lighting", raw[1]),
+                      ("Kitchen Equipment", raw[2]), ("Water Pumps", raw[3]), ("Laundry", raw[4])]
+        top_consumers = []
+        for cat, weight in categories:
+            share = round(weight / raw_sum * 100)
+            kwh = round(avg_kwh * share / 100)
+            top_consumers.append({"category": cat, "kwh": kwh, "cost": round(kwh * tariff), "share": share})
+        misc = max(0, 100 - sum(c["share"] for c in top_consumers))
+        if misc:
+            top_consumers.append({"category": "Miscellaneous", "kwh": round(avg_kwh * misc / 100),
+                                   "cost": round(avg_kwh * misc / 100 * tariff), "share": misc})
+        top_consumers = sorted(top_consumers, key=lambda x: x["kwh"], reverse=True)
+    else:
+        top_consumers = compute_top_consumers(df)
+
+    # Heatmap from predictions avg
+    if records:
+        avg_kwh = sum(p["result"]["kwh"] for p in records) / len(records)
+        base = avg_kwh / 30
+        avg_peak = float(records[-1].get("inputs", {}).get("peak_load", 180))
+        heatmap = []
+        for day in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]:
+            for hour in range(24):
+                hf = 1.3 if 6 <= hour <= 9 else 1.5 if 12 <= hour <= 16 else 1.2 if 18 <= hour <= 22 else 0.4 if hour <= 5 else 0.8
+                kwh = base * WEEKLY_FACTORS[day] * hf
+                heatmap.append({"hour": hour, "day": day, "value": min(100, round((kwh / avg_peak) * 100 * 0.3))})
+    else:
+        heatmap = compute_heatmap(df)
+
     return jsonify({
-        "monthly": get_monthly_stats(df),
-        "weekly": compute_weekly(df),
-        "season": compute_season_data(df),
-        "topConsumers": compute_top_consumers(df),
-        "heatmap": compute_heatmap(df),
+        "monthly": monthly,
+        "weekly": weekly,
+        "season": season_data,
+        "topConsumers": top_consumers,
+        "heatmap": heatmap,
     })
 
 
