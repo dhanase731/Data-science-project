@@ -188,22 +188,30 @@ def get_monthly_stats(df):
     return monthly
 
 
-def get_predicted_by_month(user_id):
-    """Average stored ML predictions grouped by month."""
+def get_predictions_by_month(user_id):
+    """Return stored ML predictions grouped by month with kwh, bill, carbon."""
     if not mongo_available:
         return {}
     pipeline = [
         {"$match": {"user_id": user_id}},
         {"$group": {
             "_id": "$month",
-            "predicted": {"$avg": "$result.kwh"},
+            "kwh": {"$avg": "$result.kwh"},
+            "bill": {"$avg": "$result.bill"},
+            "carbon": {"$avg": "$result.carbon"},
+            "count": {"$sum": 1},
         }},
     ]
     result = {}
     for doc in predictions_col.aggregate(pipeline):
         month = doc["_id"]
         if month:
-            result[month[:3]] = round(doc["predicted"])
+            result[month[:3]] = {
+                "kwh": round(doc["kwh"]),
+                "bill": round(doc["bill"]),
+                "carbon": round(doc["carbon"]),
+                "count": doc["count"],
+            }
     return result
 
 
@@ -801,36 +809,53 @@ def prediction_history():
 @app.route("/dashboard", methods=["GET"])
 @token_required
 def dashboard():
-    df = get_energy_df()
     user_id = request.user["user_id"]
-    predicted_map = get_predicted_by_month(user_id)
+    pred_map = get_predictions_by_month(user_id)
 
+    # Build monthly chart only from user predictions
     monthly = []
     for m in MONTH_ORDER:
-        mdf = df[df["Month"] == m] if not df.empty else pd.DataFrame()
-        if len(mdf) > 0:
-            predicted = predicted_map.get(m, round(mdf["Monthly_Electricity_kWh"].mean()))
+        if m in pred_map:
             monthly.append({
                 "month": m,
-                "consumption": round(mdf["Monthly_Electricity_kWh"].mean()),
-                "bill": round(mdf["Monthly_Electricity_Bill_Rs"].mean()),
-                "predicted": predicted,
+                "consumption": pred_map[m]["kwh"],
+                "bill": pred_map[m]["bill"],
+                "predicted": pred_map[m]["kwh"],
+                "carbon": pred_map[m]["carbon"],
             })
 
-    kpi_changes = compute_kpi_changes(df)
-    occupancy_series = []
-    solar_series = []
-    if not df.empty:
-        for m in MONTH_ORDER:
-            mdf = df[df["Month"] == m]
-            if len(mdf) > 0:
-                occupancy_series.append(round(mdf["Occupancy_Percentage"].mean(), 1))
-                solar_series.append(round(mdf["Solar_Generation_kWh"].mean()))
+    # KPI from predictions
+    if monthly:
+        avg_kwh = round(sum(m["consumption"] for m in monthly) / len(monthly))
+        avg_bill = round(sum(m["bill"] for m in monthly) / len(monthly))
+        avg_carbon = round(sum(m["carbon"] for m in monthly) / len(monthly))
+    else:
+        avg_kwh = avg_bill = avg_carbon = 0
+
+    # KPI changes from predictions
+    kpi_changes = {"kwhChange": "0%", "billChange": "0%", "occupancyChange": "0%", "solarChange": "0%",
+                   "kwhPositive": True, "billPositive": True, "occupancyPositive": True, "solarPositive": True}
+    if len(monthly) >= 2:
+        recent = monthly[-1]["consumption"]
+        older = monthly[-2]["consumption"]
+        if older:
+            p = ((recent - older) / older) * 100
+            kpi_changes["kwhChange"] = f"{'+' if p >= 0 else ''}{p:.1f}%"
+            kpi_changes["kwhPositive"] = p >= 0
+        recent_b = monthly[-1]["bill"]
+        older_b = monthly[-2]["bill"]
+        if older_b:
+            p = ((recent_b - older_b) / older_b) * 100
+            kpi_changes["billChange"] = f"{'+' if p >= 0 else ''}{p:.1f}%"
+            kpi_changes["billPositive"] = p >= 0
 
     try:
-        record_count = energy_col.estimated_document_count() if mongo_available else len(df)
+        pred_count = predictions_col.count_documents({"user_id": user_id}) if mongo_available else 0
     except Exception:
-        record_count = len(df)
+        pred_count = 0
+
+    # Use dataset only for distribution/season/blocks/weekly (structural data, not shown as consumption)
+    df = get_energy_df()
 
     return jsonify({
         "monthly": monthly,
@@ -839,15 +864,15 @@ def dashboard():
         "hostelBlocks": compute_hostel_blocks(df),
         "weekly": compute_weekly(df),
         "kpi": {
-            "avgKwh": round(df["Monthly_Electricity_kWh"].mean()) if not df.empty else 0,
-            "avgBill": round(df["Monthly_Electricity_Bill_Rs"].mean()) if not df.empty else 0,
-            "avgOccupancy": round(df["Occupancy_Percentage"].mean(), 1) if not df.empty else 0,
-            "avgSolar": round(df["Solar_Generation_kWh"].mean()) if not df.empty else 0,
+            "avgKwh": avg_kwh,
+            "avgBill": avg_bill,
+            "avgOccupancy": 0,
+            "avgSolar": 0,
         },
         "kpiChanges": kpi_changes,
-        "occupancySeries": occupancy_series,
-        "solarSeries": solar_series,
-        "recordCount": record_count,
+        "occupancySeries": [],
+        "solarSeries": [],
+        "recordCount": pred_count,
     })
 
 
