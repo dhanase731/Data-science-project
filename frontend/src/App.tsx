@@ -215,7 +215,7 @@ function LoginPage({ onLogin, onRegister }: { onLogin: () => void; onRegister: (
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
               <FormControlLabel control={<Checkbox size="small" checked={remember} onChange={e => setRemember(e.target.checked)} sx={{ "&.Mui-checked": { color: C.primary } }} />}
                 label={<Typography variant="caption" sx={{ color: "text.secondary" }}>Remember me</Typography>} />
-              <Button size="small" sx={{ textTransform: "none", fontSize: "0.8125rem", color: C.primary, fontWeight: 600 }}>Forgot password?</Button>
+              <Button size="small" onClick={() => alert("Please contact your administrator to reset your password.")} sx={{ textTransform: "none", fontSize: "0.8125rem", color: C.primary, fontWeight: 600 }}>Forgot password?</Button>
             </Box>
             <GradientButton fullWidth type="submit" disabled={loading} sx={{ mb: 2 }}>
               {loading ? <CircularProgress size={18} sx={{ color: "white", mr: 1 }} /> : null}
@@ -345,8 +345,8 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, onLogout, user, mobil
 }
 
 // ==================== TOP NAV ====================
-function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle }: {
-  page: Page; darkMode: boolean; setDarkMode: (v: boolean) => void; user: any; onMenuToggle: () => void;
+function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle, setPage }: {
+  page: Page; darkMode: boolean; setDarkMode: (v: boolean) => void; user: any; onMenuToggle: () => void; setPage: (p: Page) => void;
 }) {
   const labels: Record<string, string> = { dashboard: "Dashboard", prediction: "Energy Prediction", analytics: "Analytics", reports: "Reports", recommendations: "Recommendations", alerts: "Alerts", settings: "Settings" };
   return (
@@ -363,7 +363,7 @@ function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle }: {
         <TextField placeholder="Search..." size="small" sx={{ display: { xs: "none", md: "block" }, "& .MuiOutlinedInput-root": { bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 36, width: 200 } }}
           slotProps={{ input: { startAdornment: <InputAdornment position="start"><Search size={14} color={C.textMuted} /></InputAdornment> }}} />
         <IconButton size="small" onClick={() => setDarkMode(!darkMode)} sx={{ color: C.textMuted }}>{darkMode ? <Sun size={18} /> : <Moon size={18} />}</IconButton>
-        <IconButton size="small" sx={{ color: C.textMuted }}><Badge badgeContent={3} color="error"><Bell size={18} /></Badge></IconButton>
+        <IconButton size="small" onClick={() => setPage("alerts")} sx={{ color: C.textMuted }}><Badge badgeContent={3} color="error"><Bell size={18} /></Badge></IconButton>
         <Tooltip title={user?.name || "User"}><Avatar sx={{ width: 32, height: 32, bgcolor: C.secondary, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}>{user?.name?.[0]?.toUpperCase() || "U"}</Avatar></Tooltip>
       </Toolbar>
     </AppBar>
@@ -395,7 +395,7 @@ function KpiCard({ title, value, change, positive, icon: Icon, iconBg, sparkData
 }
 
 // ==================== DASHBOARD ====================
-function DashboardPage() {
+function DashboardPage({ setPage }: { setPage: (p: Page) => void }) {
   const [data, setData] = useState<any>(null);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const loadData = () => { fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).then(setData).catch(() => {}); fetch(`${API}/alerts`, { headers: authHeaders() }).then(r => r.json()).then(d => setAlerts(d.alerts ?? [])).catch(() => {}); };
@@ -418,7 +418,7 @@ function DashboardPage() {
           <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Monitor electricity usage, forecast future demand, and reduce operating costs.</Typography>
         </Box>
         <Box sx={{ display: "flex", gap: 1.5 }}>
-          <Button variant="outlined" startIcon={<Calendar size={14} />} size="small" sx={{ fontSize: "0.75rem" }}>Aug 2025</Button>
+          <Button variant="outlined" startIcon={<Calendar size={14} />} size="small" sx={{ fontSize: "0.75rem" }}>{new Date().toLocaleString("default", { month: "short", year: "numeric" })}</Button>
           <GradientButton size="small" startIcon={<RefreshCw size={14} />} onClick={loadData}>Refresh</GradientButton>
         </Box>
       </Box>
@@ -522,7 +522,7 @@ function DashboardPage() {
         <Grid size={{ xs: 12, lg: 8 }}>
           <StyledCard>
             <CardContent sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
-              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}><Typography variant="h6" sx={{ fontWeight: 600 }}>Monthly Summary</Typography><Button size="small" sx={{ textTransform: "none", fontSize: "0.75rem", color: C.primary }}>View all</Button></Box>
+              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}><Typography variant="h6" sx={{ fontWeight: 600 }}>Monthly Summary</Typography><Button size="small" onClick={() => setPage("analytics")} sx={{ textTransform: "none", fontSize: "0.75rem", color: C.primary }}>View all</Button></Box>
               <TableContainer>
                 <Table size="small">
                   <TableHead><TableRow><TableCell>Month</TableCell><TableCell>Consumption</TableCell><TableCell>Bill</TableCell><TableCell>Predicted</TableCell><TableCell>Variance</TableCell></TableRow></TableHead>
@@ -713,7 +713,7 @@ function AnalyticsPage() {
           <Filter size={15} color={C.textMuted} />
           <FormControl size="small" sx={{ minWidth: 140 }}><Select value={filterHostel} onChange={e => setFilterHostel(e.target.value)}>{["All Blocks", "Block A", "Block B", "Block C", "Block D"].map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}</Select></FormControl>
           <FormControl size="small" sx={{ minWidth: 100 }}><Select value={filterYear} onChange={e => setFilterYear(e.target.value)}>{["2025", "2024", "2023"].map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}</Select></FormControl>
-          <Button variant="outlined" size="small" startIcon={<Download size={14} />} sx={{ ml: "auto", fontSize: "0.75rem" }}>Export</Button>
+          <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => { const rows = [["Month","Consumption kWh","Bill"],[...data?.monthly?.map((m:any)=>[m.month,m.consumption,m.bill])??[]]]; const csv = rows.map(r=>r.join(",")).join("\n"); const a=document.createElement("a"); a.href="data:text/csv,"+encodeURIComponent(csv); a.download="analytics.csv"; a.click(); }} sx={{ ml: "auto", fontSize: "0.75rem" }}>Export</Button>
         </CardContent>
       </StyledCard>
       <Grid container spacing={2}>
@@ -838,7 +838,25 @@ function AnalyticsPage() {
 function ReportsPage() {
   const [dashData, setDashData] = useState<any>(null);
   const [reports, setReports] = useState<Report[]>([]);
-  useEffect(() => { fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).then(setDashData).catch(() => {}); fetch(`${API}/reports`, { headers: authHeaders() }).then(r => r.json()).then(d => setReports(d.reports ?? [])).catch(() => {}); }, []);
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState("");
+  const notify = (msg: string) => { setToast(msg); setTimeout(() => setToast(""), 3500); };
+
+  const loadData = () => {
+    setLoading(true);
+    Promise.all([
+      fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).catch(() => null),
+      fetch(`${API}/reports`, { headers: authHeaders() }).then(r => r.json()).catch(() => null),
+    ]).then(([dash, rep]) => {
+      if (dash) setDashData(dash);
+      if (rep) setReports(rep.reports ?? []);
+    }).finally(() => setLoading(false));
+  };
+
+  useEffect(() => { loadData(); }, []);
+
   const monthlyData = dashData?.monthly ?? [];
   const kpi = dashData?.kpi ?? { avgKwh: 0, avgBill: 0 };
   const totalKwh = monthlyData.reduce((s: number, m: any) => s + m.consumption, 0);
@@ -846,89 +864,308 @@ function ReportsPage() {
   const carbon = Math.round(totalKwh * 0.82);
   const latestReport = reports[0];
 
+  const reportTypes = ["All", ...Array.from(new Set(reports.map(r => r.type)))];
+  const filteredReports = reports.filter(r => {
+    const matchSearch = r.name.toLowerCase().includes(search.toLowerCase());
+    const matchType = typeFilter === "All" || r.type === typeFilter;
+    return matchSearch && matchType;
+  });
+
+  const downloadCSV = (rows: (string | number)[][], filename: string) => {
+    const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const a = document.createElement("a");
+    a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+    a.download = filename;
+    a.click();
+  };
+
+  const exportCSV = () => {
+    downloadCSV(
+      [["Report Name", "Type", "Generated", "kWh", "Bill", "Status"],
+        ...filteredReports.map(r => [r.name, r.type, r.date, r.kwh ?? "", r.bill ?? "", r.status])],
+      "reports.csv"
+    );
+    notify("Reports exported as CSV.");
+  };
+
+  const downloadPDF = (reportName: string) => {
+    const style = document.createElement("style");
+    style.id = "print-style";
+    style.innerHTML = `@media print { body > *:not(#print-frame) { display: none !important; } #print-frame { display: block !important; } }`;
+    document.head.appendChild(style);
+    const frame = document.createElement("div");
+    frame.id = "print-frame";
+    frame.style.cssText = "position:fixed;top:0;left:0;width:100%;background:white;z-index:99999;padding:32px;font-family:sans-serif;";
+    frame.innerHTML = `
+      <h2 style="color:#1B3A4B;margin-bottom:4px">${reportName}</h2>
+      <p style="color:#6B7280;font-size:13px;margin-bottom:24px">EnergyIQ Hostel Platform &mdash; Generated ${new Date().toLocaleDateString()}</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="background:#F4F1EA">
+          <th style="padding:8px 12px;text-align:left;border:1px solid #EDE9E0">Month</th>
+          <th style="padding:8px 12px;text-align:left;border:1px solid #EDE9E0">Consumption (kWh)</th>
+          <th style="padding:8px 12px;text-align:left;border:1px solid #EDE9E0">Bill (₹)</th>
+          <th style="padding:8px 12px;text-align:left;border:1px solid #EDE9E0">Predicted (kWh)</th>
+        </tr></thead>
+        <tbody>${monthlyData.slice(-6).map((m: any) => `<tr>
+          <td style="padding:8px 12px;border:1px solid #EDE9E0">${m.month}</td>
+          <td style="padding:8px 12px;border:1px solid #EDE9E0">${m.consumption?.toLocaleString()}</td>
+          <td style="padding:8px 12px;border:1px solid #EDE9E0">₹${m.bill?.toLocaleString()}</td>
+          <td style="padding:8px 12px;border:1px solid #EDE9E0">${m.predicted?.toLocaleString()}</td>
+        </tr>`).join("")}</tbody>
+      </table>
+      <p style="margin-top:24px;color:#9CA3AF;font-size:11px">Total: ${totalKwh.toLocaleString()} kWh &nbsp;|&nbsp; ₹${totalBill.toLocaleString()} &nbsp;|&nbsp; Carbon: ${carbon.toLocaleString()} kg CO₂</p>
+    `;
+    document.body.appendChild(frame);
+    window.print();
+    document.body.removeChild(frame);
+    document.head.removeChild(style);
+  };
+
+  const emailReport = (reportName: string, kwh?: number, bill?: number) => {
+    const subject = encodeURIComponent(`EnergyIQ Report: ${reportName}`);
+    const body = encodeURIComponent(
+      `Hi,\n\nPlease find the energy report summary below:\n\nReport: ${reportName}\nDate: ${new Date().toLocaleDateString()}\n` +
+      (kwh ? `Consumption: ${kwh.toLocaleString()} kWh\n` : "") +
+      (bill ? `Bill: ₹${bill.toLocaleString()}\n` : "") +
+      `Total Consumption: ${totalKwh.toLocaleString()} kWh\nTotal Bill: ₹${totalBill.toLocaleString()}\nCarbon Footprint: ${carbon.toLocaleString()} kg CO₂\n\nGenerated by EnergyIQ Hostel Platform.`
+    );
+    window.open(`mailto:?subject=${subject}&body=${body}`);
+  };
+
+  const generateTypeReport = (label: string) => {
+    if (label === "Monthly Report" || label === "Annual Report" || label === "Prediction Summary") {
+      downloadCSV(
+        [["Month", "Consumption (kWh)", "Bill (₹)", "Predicted (kWh)", "Carbon (kg)"],
+          ...monthlyData.map((m: any) => [m.month, m.consumption ?? 0, m.bill ?? 0, m.predicted ?? 0, Math.round((m.consumption ?? 0) * 0.82)])],
+        `${label.replace(/ /g, "_")}.csv`
+      );
+      notify(`${label} downloaded as CSV.`);
+    } else if (label === "Energy Audit") {
+      downloadCSV(
+        [["Metric", "Value"],
+          ["Total Consumption (kWh)", totalKwh],
+          ["Total Bill (₹)", totalBill],
+          ["Avg Monthly kWh", kpi.avgKwh],
+          ["Carbon Footprint (kg CO₂)", carbon],
+          ["Report Date", new Date().toLocaleDateString()]],
+        "Energy_Audit.csv"
+      );
+      notify("Energy Audit downloaded as CSV.");
+    } else if (label === "Optimization Plan") {
+      downloadCSV(
+        [["Recommendation", "Est. Saving", "Priority"],
+          ["Switch to LED lighting", "₹2,000/mo", "High"],
+          ["Install solar panels", "₹5,000/mo", "High"],
+          ["Optimize AC usage", "₹1,500/mo", "Medium"],
+          ["Smart metering", "₹800/mo", "Low"]],
+        "Optimization_Plan.csv"
+      );
+      notify("Optimization Plan downloaded as CSV.");
+    }
+  };
+
+  const reportTypeCards = [
+    { label: "Monthly Report", icon: Calendar, color: C.info, desc: "Monthly energy summary" },
+    { label: "Annual Report", icon: BarChart2, color: C.primary, desc: "Full year analysis" },
+    { label: "Prediction Summary", icon: TrendingUp, color: C.secondary, desc: "Forecast overview" },
+    { label: "Energy Audit", icon: Target, color: C.warning, desc: "Detailed audit" },
+    { label: "Optimization Plan", icon: Lightbulb, color: C.success, desc: "Savings roadmap" },
+  ];
+
   return (
     <Box className="page-enter" sx={{ p: { xs: 2, md: 3 }, display: "flex", flexDirection: "column", gap: 3 }}>
+      {/* Toast */}
+      {toast && (
+        <Box sx={{ position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)", zIndex: 9999, minWidth: 280, maxWidth: 420 }}>
+          <Paper elevation={6} sx={{ px: 3, py: 1.5, borderRadius: 2, bgcolor: C.primary, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+            <Typography variant="body2" sx={{ color: "white", fontWeight: 500 }}>{toast}</Typography>
+            <IconButton size="small" onClick={() => setToast("")} sx={{ color: "white", p: 0.25 }}><X size={14} /></IconButton>
+          </Paper>
+        </Box>
+      )}
+      {/* Header */}
       <Box sx={{ display: "flex", alignItems: { xs: "flex-start", md: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-        <Box><Typography variant="h4" sx={{ fontWeight: 700, color: "text.primary" }}>Reports</Typography><Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Generate, download and share energy reports</Typography></Box>
-        <Box sx={{ display: "flex", gap: 1 }}><Button variant="outlined" size="small" startIcon={<Printer size={14} />} sx={{ fontSize: "0.75rem" }}>Print</Button><Button variant="outlined" size="small" startIcon={<Mail size={14} />} sx={{ fontSize: "0.75rem" }}>Email Report</Button><GradientButton size="small" startIcon={<Download size={14} />}>Download PDF</GradientButton></Box>
+        <Box>
+          <Typography variant="h4" sx={{ fontWeight: 700, color: "text.primary" }}>Reports</Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Generate, download and share energy reports</Typography>
+        </Box>
+        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+          <Button variant="outlined" size="small" startIcon={<RefreshCw size={14} />} onClick={loadData} sx={{ fontSize: "0.75rem" }}>Refresh</Button>
+          <Button variant="outlined" size="small" startIcon={<Printer size={14} />} onClick={() => window.print()} sx={{ fontSize: "0.75rem" }}>Print</Button>
+          <Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => emailReport(latestReport?.name ?? "Energy Report", latestReport?.kwh, latestReport?.bill)} sx={{ fontSize: "0.75rem" }}>Email Report</Button>
+          <GradientButton size="small" startIcon={<Download size={14} />} onClick={() => downloadPDF(latestReport?.name ?? "Energy Management Report")}>Download PDF</GradientButton>
+        </Box>
       </Box>
+
+      {/* Report Type Cards */}
       <Grid container spacing={2}>
-        {[
-          { label: "Monthly Report", icon: Calendar, color: C.info },
-          { label: "Annual Report", icon: BarChart2, color: C.primary },
-          { label: "Prediction Summary", icon: TrendingUp, color: C.secondary },
-          { label: "Energy Audit", icon: Target, color: C.warning },
-          { label: "Optimization Plan", icon: Lightbulb, color: C.success },
-        ].map(item => (
-          <Grid size={{ xs: 6, sm: 4, md: 2.4 }} key={item.label}>
-            <StyledCard sx={{ cursor: "pointer", "&:hover": { borderColor: item.color } }}>
+        {reportTypeCards.map(item => (
+          <Grid size={{ xs: 6, sm: 4, md: 4, lg: "auto" }} key={item.label} sx={{ flexGrow: 1 }}>
+            <StyledCard
+              onClick={() => generateTypeReport(item.label)}
+              sx={{ cursor: "pointer", height: "100%", "&:hover": { borderColor: item.color, transform: "translateY(-2px)" } }}
+            >
               <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
-                <Avatar sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: alpha(item.color, 0.1), mb: 1.5 }}><item.icon size={16} color={item.color} /></Avatar>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>{item.label}</Typography>
-                <Typography variant="caption" sx={{ color: "text.disabled" }}>Generate</Typography>
+                <Avatar sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: alpha(item.color, 0.1), mb: 1.5 }}>
+                  <item.icon size={16} color={item.color} />
+                </Avatar>
+                <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary", lineHeight: 1.3 }}>{item.label}</Typography>
+                <Typography variant="caption" sx={{ color: "text.disabled" }}>{item.desc}</Typography>
               </CardContent>
             </StyledCard>
           </Grid>
         ))}
       </Grid>
+
+      {/* Report Preview Card */}
       <StyledCard>
-        <CardContent sx={{ p: 3, "&:last-child": { pb: 3 } }}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3, pb: 2.5, borderBottom: `1px solid ${C.border}` }}>
+        <CardContent sx={{ p: { xs: 2, md: 3 }, "&:last-child": { pb: { xs: 2, md: 3 } } }}>
+          <Box sx={{ display: "flex", alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", sm: "row" }, gap: 2, mb: 3, pb: 2.5, borderBottom: `1px solid ${C.border}` }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}><BadgeChip type="Monthly" /><Typography variant="caption" sx={{ color: "text.disabled" }}>{latestReport ? `Generated ${latestReport.date}` : "No reports yet"}</Typography></Box>
-              <Typography variant="h5" sx={{ fontWeight: 700, color: "text.primary" }}>{latestReport ? latestReport.name : "Energy Management Report"}</Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5, flexWrap: "wrap" }}>
+                <BadgeChip type="Monthly" />
+                <Typography variant="caption" sx={{ color: "text.disabled" }}>
+                  {latestReport ? `Generated ${latestReport.date}` : "No reports yet"}
+                </Typography>
+              </Box>
+              <Typography variant="h5" sx={{ fontWeight: 700, color: "text.primary", fontSize: { xs: "1.1rem", md: "1.5rem" } }}>
+                {latestReport ? latestReport.name : "Energy Management Report"}
+              </Typography>
               <Typography variant="caption" sx={{ color: "text.disabled" }}>EnergyIQ Hostel Platform · Data from MongoDB</Typography>
             </Box>
-            <Button variant="outlined" size="small" startIcon={<Download size={14} />} sx={{ fontSize: "0.75rem" }}>Download PDF</Button>
+            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => downloadPDF(latestReport?.name ?? "Energy Management Report")} sx={{ fontSize: "0.75rem", flexShrink: 0 }}>Download PDF</Button>
           </Box>
+
+          {/* KPI Summary */}
           <Grid container spacing={2} sx={{ mb: 3 }}>
             {[
-              { label: "Total Consumption", value: `${totalKwh.toLocaleString()} kWh` },
-              { label: "Total Bill", value: `₹${totalBill.toLocaleString()}` },
-              { label: "Avg Monthly kWh", value: `${kpi.avgKwh.toLocaleString()} kWh` },
-              { label: "Carbon Footprint", value: `${carbon.toLocaleString()} kg CO₂` },
+              { label: "Total Consumption", value: `${totalKwh.toLocaleString()} kWh`, icon: Zap, color: C.primary },
+              { label: "Total Bill", value: `₹${totalBill.toLocaleString()}`, icon: DollarSign, color: C.secondary },
+              { label: "Avg Monthly kWh", value: `${kpi.avgKwh.toLocaleString()} kWh`, icon: Activity, color: C.success },
+              { label: "Carbon Footprint", value: `${carbon.toLocaleString()} kg CO₂`, icon: Leaf, color: C.warning },
             ].map(s => (
               <Grid size={{ xs: 6, md: 3 }} key={s.label}>
-                <Box sx={{ p: 2, borderRadius: 2, bgcolor: alpha(C.primary, 0.03) }}>
-                  <Typography variant="caption" sx={{ color: "text.secondary", mb: 0.5 }}>{s.label}</Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: "text.primary" }}>{s.value}</Typography>
+                <Box sx={{ p: { xs: 1.5, md: 2 }, borderRadius: 2, bgcolor: alpha(s.color, 0.05), border: `1px solid ${alpha(s.color, 0.12)}` }}>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.75 }}>
+                    <s.icon size={14} color={s.color} />
+                    <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }}>{s.label}</Typography>
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: "text.primary", fontSize: { xs: "0.95rem", md: "1.25rem" } }}>{s.value}</Typography>
                 </Box>
               </Grid>
             ))}
           </Grid>
-          <ResponsiveContainer width="100%" height={160}>
-            <AreaChart data={monthlyData.slice(-4)} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-              <defs><linearGradient id="rpGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor={C.primary} stopOpacity={0.12} /><stop offset="95%" stopColor={C.primary} stopOpacity={0} /></linearGradient></defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F3F0E8" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
-              <RechartsTooltip content={<ChartTooltip />} />
-              <Area type="monotone" dataKey="consumption" name="kWh" stroke={C.primary} strokeWidth={2} fill="url(#rpGrad)" dot={false} />
-            </AreaChart>
-          </ResponsiveContainer>
+
+          {/* Chart */}
+          {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}><CircularProgress size={28} /></Box>
+          ) : monthlyData.length === 0 ? (
+            <Box sx={{ textAlign: "center", py: 4 }}><Typography variant="body2" sx={{ color: "text.disabled" }}>No monthly data available yet.</Typography></Box>
+          ) : (
+            <ResponsiveContainer width="100%" height={180}>
+              <AreaChart data={monthlyData.slice(-6)} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="rpGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.primary} stopOpacity={0.12} />
+                    <stop offset="95%" stopColor={C.primary} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F3F0E8" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
+                <RechartsTooltip content={<ChartTooltip />} />
+                <Area type="monotone" dataKey="consumption" name="kWh" stroke={C.primary} strokeWidth={2} fill="url(#rpGrad)" dot={false} />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </StyledCard>
+
+      {/* Recent Reports Table */}
       <StyledCard>
-        <CardContent sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
-          <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>Recent Reports</Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead><TableRow><TableCell>Report Name</TableCell><TableCell>Type</TableCell><TableCell>Generated</TableCell><TableCell>kWh</TableCell><TableCell>Status</TableCell><TableCell>Actions</TableCell></TableRow></TableHead>
+        <CardContent sx={{ p: { xs: 2, md: 2.5 }, "&:last-child": { pb: { xs: 2, md: 2.5 } } }}>
+          <Box sx={{ display: "flex", alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", sm: "row" }, gap: 2, mb: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>Recent Reports</Typography>
+            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", width: { xs: "100%", sm: "auto" } }}>
+              <TextField
+                size="small"
+                placeholder="Search reports..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                sx={{ "& .MuiOutlinedInput-root": { bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 34, width: { xs: "100%", sm: 180 } } }}
+                slotProps={{ input: { startAdornment: <InputAdornment position="start"><Search size={13} color={C.textMuted} /></InputAdornment> } }}
+              />
+              <FormControl size="small" sx={{ minWidth: 120 }}>
+                <Select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} sx={{ bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 34 }}>
+                  {reportTypes.map(t => <MenuItem key={t} value={t} sx={{ fontSize: "0.8125rem" }}>{t}</MenuItem>)}
+                </Select>
+              </FormControl>
+              <Button variant="outlined" size="small" startIcon={<Download size={13} />} onClick={exportCSV} sx={{ fontSize: "0.75rem", height: 34, whiteSpace: "nowrap" }}>Export CSV</Button>
+            </Box>
+          </Box>
+
+          <TableContainer sx={{ overflowX: "auto" }}>
+            <Table size="small" sx={{ minWidth: 560 }}>
+              <TableHead>
+                <TableRow sx={{ "& .MuiTableCell-head": { fontWeight: 600, fontSize: "0.75rem", color: "text.secondary", bgcolor: alpha(C.primary, 0.03), whiteSpace: "nowrap" } }}>
+                  <TableCell>Report Name</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Generated</TableCell>
+                  <TableCell>kWh</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
-                {reports.length === 0 && <TableRow><TableCell colSpan={6} sx={{ textAlign: "center", py: 4 }}><Typography variant="body2" sx={{ color: "text.disabled" }}>No prediction reports yet. Run a prediction to generate reports.</Typography></TableCell></TableRow>}
-                {reports.map(r => (
-                  <TableRow key={r.id} hover>
-                    <TableCell><Typography variant="body2" sx={{ fontWeight: 500 }}>{r.name}</Typography></TableCell>
+                {loading && (
+                  <TableRow><TableCell colSpan={6} sx={{ textAlign: "center", py: 4 }}><CircularProgress size={24} /></TableCell></TableRow>
+                )}
+                {!loading && filteredReports.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} sx={{ textAlign: "center", py: 5 }}>
+                      <Avatar sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: alpha(C.primary, 0.06), mx: "auto", mb: 1.5 }}><FileText size={20} color={C.textMuted} /></Avatar>
+                      <Typography variant="body2" sx={{ color: "text.disabled", fontWeight: 500 }}>
+                        {search || typeFilter !== "All" ? "No reports match your filters." : "No prediction reports yet. Run a prediction to generate reports."}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+                {!loading && filteredReports.map(r => (
+                  <TableRow key={r.id} hover sx={{ "& .MuiTableCell-root": { py: 1.25 } }}>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary", whiteSpace: "nowrap" }}>{r.name}</Typography>
+                    </TableCell>
                     <TableCell><BadgeChip type={r.type} /></TableCell>
-                    <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.date}</Typography></TableCell>
+                    <TableCell><Typography variant="caption" sx={{ color: "text.secondary", whiteSpace: "nowrap" }}>{r.date}</Typography></TableCell>
                     <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.kwh?.toLocaleString() ?? "—"}</Typography></TableCell>
                     <TableCell><BadgeChip type={r.status} /></TableCell>
-                    <TableCell><Box sx={{ display: "flex", gap: 0.5 }}><IconButton size="small" sx={{ color: C.textMuted }}><Download size={14} /></IconButton><IconButton size="small" sx={{ color: C.textMuted }}><Mail size={14} /></IconButton><IconButton size="small" sx={{ color: C.textMuted }}><Printer size={14} /></IconButton></Box></TableCell>
+                    <TableCell align="right">
+                      <Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
+                        <Tooltip title="Download PDF">
+                          <IconButton size="small" onClick={() => downloadPDF(r.name)} sx={{ color: C.textMuted, "&:hover": { color: C.primary } }}><Download size={14} /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Email Report">
+                          <IconButton size="small" onClick={() => emailReport(r.name, r.kwh, r.bill)} sx={{ color: C.textMuted, "&:hover": { color: C.info } }}><Mail size={14} /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Print">
+                          <IconButton size="small" onClick={() => window.print()} sx={{ color: C.textMuted, "&:hover": { color: C.success } }}><Printer size={14} /></IconButton>
+                        </Tooltip>
+                      </Box>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+
+          {filteredReports.length > 0 && (
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, pt: 1.5, borderTop: `1px solid ${C.border}` }}>
+              <Typography variant="caption" sx={{ color: "text.disabled" }}>
+                Showing {filteredReports.length} of {reports.length} report{reports.length !== 1 ? "s" : ""}
+              </Typography>
+              <Button size="small" startIcon={<Download size={13} />} onClick={exportCSV} sx={{ fontSize: "0.75rem", color: C.primary, textTransform: "none" }}>Export all as CSV</Button>
+            </Box>
+          )}
         </CardContent>
       </StyledCard>
     </Box>
@@ -1010,7 +1247,7 @@ function RecommendationsPage() {
                   {isOpen && (
                     <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${C.border}` }}>
                       <Box sx={{ display: "flex", gap: 1.5, mb: 2 }}><Leaf size={16} color={C.success} style={{ flexShrink: 0, marginTop: 2 }} /><Typography variant="caption" sx={{ color: "text.secondary" }}>Implementing this recommendation reduces carbon emissions by an estimated <strong>12–18%</strong> of current block output, helping meet sustainability targets.</Typography></Box>
-                      <Button variant="outlined" fullWidth size="small" sx={{ borderColor: C.primary, color: C.primary, fontSize: "0.75rem" }}>Start Implementation Plan</Button>
+                      <Button variant="outlined" fullWidth size="small" onClick={() => alert(`Implementation plan for "${rec.title}" will be available soon.`)} sx={{ borderColor: C.primary, color: C.primary, fontSize: "0.75rem" }}>Start Implementation Plan</Button>
                     </Box>
                   )}
                 </CardContent>
@@ -1148,7 +1385,7 @@ function SettingsPage() {
             ))}
             <Divider sx={{ my: 1 }} />
             <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: 1.5, color: C.error }}>
+              <ListItemButton onClick={() => { if (confirm("Are you sure you want to delete all data? This cannot be undone.")) alert("Danger zone actions require backend support."); }} sx={{ borderRadius: 1.5, color: C.error }}>
                 <ListItemIcon sx={{ minWidth: 32, color: C.error }}><AlertTriangle size={16} /></ListItemIcon>
                 <ListItemText primary="Danger Zone" sx={{ "& .MuiListItemText-primary": { fontSize: "0.8125rem", fontWeight: 500 } }} />
               </ListItemButton>
@@ -1179,7 +1416,7 @@ function SettingsPage() {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}><GradientButton size="small">Save Changes</GradientButton></Box>
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}><GradientButton size="small" onClick={() => alert("Profile update feature coming soon.")}>Save Changes</GradientButton></Box>
               </CardContent>
             </StyledCard>
           )}
@@ -1270,7 +1507,7 @@ export default function App() {
   const handleLogout = () => { localStorage.removeItem("token"); localStorage.removeItem("user"); setUser(null); setPage("login"); };
   const renderPage = () => {
     switch (page) {
-      case "dashboard": return <DashboardPage />;
+      case "dashboard": return <DashboardPage setPage={setPage} />;
       case "prediction": return <PredictionPage />;
       case "analytics": return <AnalyticsPage />;
       case "reports": return <ReportsPage />;
@@ -1286,7 +1523,7 @@ export default function App() {
     <Box sx={{ display: "flex", height: "100vh", overflow: "hidden", bgcolor: C.bg }}>
       <Sidebar page={page} setPage={setPage} collapsed={collapsed} setCollapsed={setCollapsed} onLogout={handleLogout} user={user} mobileOpen={mobileOpen} onMobileClose={() => setMobileOpen(false)} />
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, overflow: "hidden" }}>
-        <TopNav page={page} darkMode={darkMode} setDarkMode={setDarkMode} user={user} onMenuToggle={() => setMobileOpen(true)} />
+        <TopNav page={page} darkMode={darkMode} setDarkMode={setDarkMode} user={user} onMenuToggle={() => setMobileOpen(true)} setPage={setPage} />
         <Box component="main" sx={{ flex: 1, overflow: "auto" }}>{renderPage()}</Box>
       </Box>
     </Box>
