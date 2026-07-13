@@ -215,7 +215,7 @@ function LoginPage({ onLogin, onRegister }: { onLogin: () => void; onRegister: (
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
               <FormControlLabel control={<Checkbox size="small" checked={remember} onChange={e => setRemember(e.target.checked)} sx={{ "&.Mui-checked": { color: C.primary } }} />}
                 label={<Typography variant="caption" sx={{ color: "text.secondary" }}>Remember me</Typography>} />
-              <Button size="small" sx={{ textTransform: "none", fontSize: "0.8125rem", color: C.primary, fontWeight: 600 }}>Forgot password?</Button>
+              <Button size="small" onClick={() => alert("Please contact your administrator to reset your password.")} sx={{ textTransform: "none", fontSize: "0.8125rem", color: C.primary, fontWeight: 600 }}>Forgot password?</Button>
             </Box>
             <GradientButton fullWidth type="submit" disabled={loading} sx={{ mb: 2 }}>
               {loading ? <CircularProgress size={18} sx={{ color: "white", mr: 1 }} /> : null}
@@ -345,8 +345,8 @@ function Sidebar({ page, setPage, collapsed, setCollapsed, onLogout, user, mobil
 }
 
 // ==================== TOP NAV ====================
-function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle }: {
-  page: Page; darkMode: boolean; setDarkMode: (v: boolean) => void; user: any; onMenuToggle: () => void;
+function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle, setPage }: {
+  page: Page; darkMode: boolean; setDarkMode: (v: boolean) => void; user: any; onMenuToggle: () => void; setPage: (p: Page) => void;
 }) {
   const labels: Record<string, string> = { dashboard: "Dashboard", prediction: "Energy Prediction", analytics: "Analytics", reports: "Reports", recommendations: "Recommendations", alerts: "Alerts", settings: "Settings" };
   return (
@@ -363,7 +363,7 @@ function TopNav({ page, darkMode, setDarkMode, user, onMenuToggle }: {
         <TextField placeholder="Search..." size="small" sx={{ display: { xs: "none", md: "block" }, "& .MuiOutlinedInput-root": { bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 36, width: 200 } }}
           slotProps={{ input: { startAdornment: <InputAdornment position="start"><Search size={14} color={C.textMuted} /></InputAdornment> }}} />
         <IconButton size="small" onClick={() => setDarkMode(!darkMode)} sx={{ color: C.textMuted }}>{darkMode ? <Sun size={18} /> : <Moon size={18} />}</IconButton>
-        <IconButton size="small" sx={{ color: C.textMuted }}><Badge badgeContent={3} color="error"><Bell size={18} /></Badge></IconButton>
+        <IconButton size="small" onClick={() => setPage("alerts")} sx={{ color: C.textMuted }}><Badge badgeContent={3} color="error"><Bell size={18} /></Badge></IconButton>
         <Tooltip title={user?.name || "User"}><Avatar sx={{ width: 32, height: 32, bgcolor: C.secondary, fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}>{user?.name?.[0]?.toUpperCase() || "U"}</Avatar></Tooltip>
       </Toolbar>
     </AppBar>
@@ -395,7 +395,7 @@ function KpiCard({ title, value, change, positive, icon: Icon, iconBg, sparkData
 }
 
 // ==================== DASHBOARD ====================
-function DashboardPage() {
+function DashboardPage({ setPage }: { setPage: (p: Page) => void }) {
   const [data, setData] = useState<any>(null);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const loadData = () => { fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).then(setData).catch(() => {}); fetch(`${API}/alerts`, { headers: authHeaders() }).then(r => r.json()).then(d => setAlerts(d.alerts ?? [])).catch(() => {}); };
@@ -418,7 +418,7 @@ function DashboardPage() {
           <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Monitor electricity usage, forecast future demand, and reduce operating costs.</Typography>
         </Box>
         <Box sx={{ display: "flex", gap: 1.5 }}>
-          <Button variant="outlined" startIcon={<Calendar size={14} />} size="small" sx={{ fontSize: "0.75rem" }}>Aug 2025</Button>
+          <Button variant="outlined" startIcon={<Calendar size={14} />} size="small" sx={{ fontSize: "0.75rem" }}>{new Date().toLocaleString("default", { month: "short", year: "numeric" })}</Button>
           <GradientButton size="small" startIcon={<RefreshCw size={14} />} onClick={loadData}>Refresh</GradientButton>
         </Box>
       </Box>
@@ -522,7 +522,7 @@ function DashboardPage() {
         <Grid size={{ xs: 12, lg: 8 }}>
           <StyledCard>
             <CardContent sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
-              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}><Typography variant="h6" sx={{ fontWeight: 600 }}>Monthly Summary</Typography><Button size="small" sx={{ textTransform: "none", fontSize: "0.75rem", color: C.primary }}>View all</Button></Box>
+              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}><Typography variant="h6" sx={{ fontWeight: 600 }}>Monthly Summary</Typography><Button size="small" onClick={() => setPage("analytics")} sx={{ textTransform: "none", fontSize: "0.75rem", color: C.primary }}>View all</Button></Box>
               <TableContainer>
                 <Table size="small">
                   <TableHead><TableRow><TableCell>Month</TableCell><TableCell>Consumption</TableCell><TableCell>Bill</TableCell><TableCell>Predicted</TableCell><TableCell>Variance</TableCell></TableRow></TableHead>
@@ -713,7 +713,7 @@ function AnalyticsPage() {
           <Filter size={15} color={C.textMuted} />
           <FormControl size="small" sx={{ minWidth: 140 }}><Select value={filterHostel} onChange={e => setFilterHostel(e.target.value)}>{["All Blocks", "Block A", "Block B", "Block C", "Block D"].map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}</Select></FormControl>
           <FormControl size="small" sx={{ minWidth: 100 }}><Select value={filterYear} onChange={e => setFilterYear(e.target.value)}>{["2025", "2024", "2023"].map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}</Select></FormControl>
-          <Button variant="outlined" size="small" startIcon={<Download size={14} />} sx={{ ml: "auto", fontSize: "0.75rem" }}>Export</Button>
+          <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => { const rows = [["Month","Consumption kWh","Bill"],[...data?.monthly?.map((m:any)=>[m.month,m.consumption,m.bill])??[]]]; const csv = rows.map(r=>r.join(",")).join("\n"); const a=document.createElement("a"); a.href="data:text/csv,"+encodeURIComponent(csv); a.download="analytics.csv"; a.click(); }} sx={{ ml: "auto", fontSize: "0.75rem" }}>Export</Button>
         </CardContent>
       </StyledCard>
       <Grid container spacing={2}>
@@ -850,7 +850,7 @@ function ReportsPage() {
     <Box className="page-enter" sx={{ p: { xs: 2, md: 3 }, display: "flex", flexDirection: "column", gap: 3 }}>
       <Box sx={{ display: "flex", alignItems: { xs: "flex-start", md: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
         <Box><Typography variant="h4" sx={{ fontWeight: 700, color: "text.primary" }}>Reports</Typography><Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Generate, download and share energy reports</Typography></Box>
-        <Box sx={{ display: "flex", gap: 1 }}><Button variant="outlined" size="small" startIcon={<Printer size={14} />} sx={{ fontSize: "0.75rem" }}>Print</Button><Button variant="outlined" size="small" startIcon={<Mail size={14} />} sx={{ fontSize: "0.75rem" }}>Email Report</Button><GradientButton size="small" startIcon={<Download size={14} />}>Download PDF</GradientButton></Box>
+        <Box sx={{ display: "flex", gap: 1 }}><Button variant="outlined" size="small" startIcon={<Printer size={14} />} onClick={() => window.print()} sx={{ fontSize: "0.75rem" }}>Print</Button><Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => alert("Email report feature requires email configuration.")} sx={{ fontSize: "0.75rem" }}>Email Report</Button><GradientButton size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")}>Download PDF</GradientButton></Box>
       </Box>
       <Grid container spacing={2}>
         {[
@@ -861,7 +861,7 @@ function ReportsPage() {
           { label: "Optimization Plan", icon: Lightbulb, color: C.success },
         ].map(item => (
           <Grid size={{ xs: 6, sm: 4, md: 2.4 }} key={item.label}>
-            <StyledCard sx={{ cursor: "pointer", "&:hover": { borderColor: item.color } }}>
+            <StyledCard onClick={() => alert(`${item.label} generation coming soon.`)} sx={{ cursor: "pointer", "&:hover": { borderColor: item.color } }}>
               <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
                 <Avatar sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: alpha(item.color, 0.1), mb: 1.5 }}><item.icon size={16} color={item.color} /></Avatar>
                 <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>{item.label}</Typography>
@@ -879,7 +879,7 @@ function ReportsPage() {
               <Typography variant="h5" sx={{ fontWeight: 700, color: "text.primary" }}>{latestReport ? latestReport.name : "Energy Management Report"}</Typography>
               <Typography variant="caption" sx={{ color: "text.disabled" }}>EnergyIQ Hostel Platform · Data from MongoDB</Typography>
             </Box>
-            <Button variant="outlined" size="small" startIcon={<Download size={14} />} sx={{ fontSize: "0.75rem" }}>Download PDF</Button>
+            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")} sx={{ fontSize: "0.75rem" }}>Download PDF</Button>
           </Box>
           <Grid container spacing={2} sx={{ mb: 3 }}>
             {[
@@ -923,7 +923,7 @@ function ReportsPage() {
                     <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.date}</Typography></TableCell>
                     <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.kwh?.toLocaleString() ?? "—"}</Typography></TableCell>
                     <TableCell><BadgeChip type={r.status} /></TableCell>
-                    <TableCell><Box sx={{ display: "flex", gap: 0.5 }}><IconButton size="small" sx={{ color: C.textMuted }}><Download size={14} /></IconButton><IconButton size="small" sx={{ color: C.textMuted }}><Mail size={14} /></IconButton><IconButton size="small" sx={{ color: C.textMuted }}><Printer size={14} /></IconButton></Box></TableCell>
+                    <TableCell><Box sx={{ display: "flex", gap: 0.5 }}><IconButton size="small" onClick={() => alert("PDF export coming soon.")} sx={{ color: C.textMuted }}><Download size={14} /></IconButton><IconButton size="small" onClick={() => alert("Email report feature requires email configuration.")} sx={{ color: C.textMuted }}><Mail size={14} /></IconButton><IconButton size="small" onClick={() => window.print()} sx={{ color: C.textMuted }}><Printer size={14} /></IconButton></Box></TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -1010,7 +1010,7 @@ function RecommendationsPage() {
                   {isOpen && (
                     <Box sx={{ mt: 2, pt: 2, borderTop: `1px solid ${C.border}` }}>
                       <Box sx={{ display: "flex", gap: 1.5, mb: 2 }}><Leaf size={16} color={C.success} style={{ flexShrink: 0, marginTop: 2 }} /><Typography variant="caption" sx={{ color: "text.secondary" }}>Implementing this recommendation reduces carbon emissions by an estimated <strong>12–18%</strong> of current block output, helping meet sustainability targets.</Typography></Box>
-                      <Button variant="outlined" fullWidth size="small" sx={{ borderColor: C.primary, color: C.primary, fontSize: "0.75rem" }}>Start Implementation Plan</Button>
+                      <Button variant="outlined" fullWidth size="small" onClick={() => alert(`Implementation plan for "${rec.title}" will be available soon.`)} sx={{ borderColor: C.primary, color: C.primary, fontSize: "0.75rem" }}>Start Implementation Plan</Button>
                     </Box>
                   )}
                 </CardContent>
@@ -1148,7 +1148,7 @@ function SettingsPage() {
             ))}
             <Divider sx={{ my: 1 }} />
             <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: 1.5, color: C.error }}>
+              <ListItemButton onClick={() => { if (confirm("Are you sure you want to delete all data? This cannot be undone.")) alert("Danger zone actions require backend support."); }} sx={{ borderRadius: 1.5, color: C.error }}>
                 <ListItemIcon sx={{ minWidth: 32, color: C.error }}><AlertTriangle size={16} /></ListItemIcon>
                 <ListItemText primary="Danger Zone" sx={{ "& .MuiListItemText-primary": { fontSize: "0.8125rem", fontWeight: 500 } }} />
               </ListItemButton>
@@ -1179,7 +1179,7 @@ function SettingsPage() {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: "flex-end" }}><GradientButton size="small">Save Changes</GradientButton></Box>
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}><GradientButton size="small" onClick={() => alert("Profile update feature coming soon.")}>Save Changes</GradientButton></Box>
               </CardContent>
             </StyledCard>
           )}
@@ -1270,7 +1270,7 @@ export default function App() {
   const handleLogout = () => { localStorage.removeItem("token"); localStorage.removeItem("user"); setUser(null); setPage("login"); };
   const renderPage = () => {
     switch (page) {
-      case "dashboard": return <DashboardPage />;
+      case "dashboard": return <DashboardPage setPage={setPage} />;
       case "prediction": return <PredictionPage />;
       case "analytics": return <AnalyticsPage />;
       case "reports": return <ReportsPage />;
@@ -1286,7 +1286,7 @@ export default function App() {
     <Box sx={{ display: "flex", height: "100vh", overflow: "hidden", bgcolor: C.bg }}>
       <Sidebar page={page} setPage={setPage} collapsed={collapsed} setCollapsed={setCollapsed} onLogout={handleLogout} user={user} mobileOpen={mobileOpen} onMobileClose={() => setMobileOpen(false)} />
       <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, overflow: "hidden" }}>
-        <TopNav page={page} darkMode={darkMode} setDarkMode={setDarkMode} user={user} onMenuToggle={() => setMobileOpen(true)} />
+        <TopNav page={page} darkMode={darkMode} setDarkMode={setDarkMode} user={user} onMenuToggle={() => setMobileOpen(true)} setPage={setPage} />
         <Box component="main" sx={{ flex: 1, overflow: "auto" }}>{renderPage()}</Box>
       </Box>
     </Box>
