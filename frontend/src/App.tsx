@@ -838,7 +838,23 @@ function AnalyticsPage() {
 function ReportsPage() {
   const [dashData, setDashData] = useState<any>(null);
   const [reports, setReports] = useState<Report[]>([]);
-  useEffect(() => { fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).then(setDashData).catch(() => {}); fetch(`${API}/reports`, { headers: authHeaders() }).then(r => r.json()).then(d => setReports(d.reports ?? [])).catch(() => {}); }, []);
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
+
+  const loadData = () => {
+    setLoading(true);
+    Promise.all([
+      fetch(`${API}/dashboard`, { headers: authHeaders() }).then(r => r.json()).catch(() => null),
+      fetch(`${API}/reports`, { headers: authHeaders() }).then(r => r.json()).catch(() => null),
+    ]).then(([dash, rep]) => {
+      if (dash) setDashData(dash);
+      if (rep) setReports(rep.reports ?? []);
+    }).finally(() => setLoading(false));
+  };
+
+  useEffect(() => { loadData(); }, []);
+
   const monthlyData = dashData?.monthly ?? [];
   const kpi = dashData?.kpi ?? { avgKwh: 0, avgBill: 0 };
   const totalKwh = monthlyData.reduce((s: number, m: any) => s + m.consumption, 0);
@@ -846,89 +862,216 @@ function ReportsPage() {
   const carbon = Math.round(totalKwh * 0.82);
   const latestReport = reports[0];
 
+  const reportTypes = ["All", ...Array.from(new Set(reports.map(r => r.type)))];
+  const filteredReports = reports.filter(r => {
+    const matchSearch = r.name.toLowerCase().includes(search.toLowerCase());
+    const matchType = typeFilter === "All" || r.type === typeFilter;
+    return matchSearch && matchType;
+  });
+
+  const exportCSV = () => {
+    const rows = [["Report Name", "Type", "Generated", "kWh", "Bill", "Status"],
+      ...filteredReports.map(r => [r.name, r.type, r.date, r.kwh ?? "", r.bill ?? "", r.status])];
+    const csv = rows.map(r => r.join(",")).join("\n");
+    const a = document.createElement("a");
+    a.href = "data:text/csv," + encodeURIComponent(csv);
+    a.download = "reports.csv";
+    a.click();
+  };
+
+  const reportTypeCards = [
+    { label: "Monthly Report", icon: Calendar, color: C.info, desc: "Monthly energy summary" },
+    { label: "Annual Report", icon: BarChart2, color: C.primary, desc: "Full year analysis" },
+    { label: "Prediction Summary", icon: TrendingUp, color: C.secondary, desc: "Forecast overview" },
+    { label: "Energy Audit", icon: Target, color: C.warning, desc: "Detailed audit" },
+    { label: "Optimization Plan", icon: Lightbulb, color: C.success, desc: "Savings roadmap" },
+  ];
+
   return (
     <Box className="page-enter" sx={{ p: { xs: 2, md: 3 }, display: "flex", flexDirection: "column", gap: 3 }}>
+      {/* Header */}
       <Box sx={{ display: "flex", alignItems: { xs: "flex-start", md: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
-        <Box><Typography variant="h4" sx={{ fontWeight: 700, color: "text.primary" }}>Reports</Typography><Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Generate, download and share energy reports</Typography></Box>
-        <Box sx={{ display: "flex", gap: 1 }}><Button variant="outlined" size="small" startIcon={<Printer size={14} />} onClick={() => window.print()} sx={{ fontSize: "0.75rem" }}>Print</Button><Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => alert("Email report feature requires email configuration.")} sx={{ fontSize: "0.75rem" }}>Email Report</Button><GradientButton size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")}>Download PDF</GradientButton></Box>
+        <Box>
+          <Typography variant="h4" sx={{ fontWeight: 700, color: "text.primary" }}>Reports</Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary", mt: 0.5 }}>Generate, download and share energy reports</Typography>
+        </Box>
+        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+          <Button variant="outlined" size="small" startIcon={<RefreshCw size={14} />} onClick={loadData} sx={{ fontSize: "0.75rem" }}>Refresh</Button>
+          <Button variant="outlined" size="small" startIcon={<Printer size={14} />} onClick={() => window.print()} sx={{ fontSize: "0.75rem" }}>Print</Button>
+          <Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => alert("Email report feature requires email configuration.")} sx={{ fontSize: "0.75rem" }}>Email Report</Button>
+          <GradientButton size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")}>Download PDF</GradientButton>
+        </Box>
       </Box>
+
+      {/* Report Type Cards */}
       <Grid container spacing={2}>
-        {[
-          { label: "Monthly Report", icon: Calendar, color: C.info },
-          { label: "Annual Report", icon: BarChart2, color: C.primary },
-          { label: "Prediction Summary", icon: TrendingUp, color: C.secondary },
-          { label: "Energy Audit", icon: Target, color: C.warning },
-          { label: "Optimization Plan", icon: Lightbulb, color: C.success },
-        ].map(item => (
-          <Grid size={{ xs: 6, sm: 4, md: 2.4 }} key={item.label}>
-            <StyledCard onClick={() => alert(`${item.label} generation coming soon.`)} sx={{ cursor: "pointer", "&:hover": { borderColor: item.color } }}>
+        {reportTypeCards.map(item => (
+          <Grid size={{ xs: 6, sm: 4, md: 4, lg: "auto" }} key={item.label} sx={{ flexGrow: 1 }}>
+            <StyledCard
+              onClick={() => alert(`Generating ${item.label}...\nThis feature will be available soon.`)}
+              sx={{ cursor: "pointer", height: "100%", "&:hover": { borderColor: item.color, transform: "translateY(-2px)" } }}
+            >
               <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
-                <Avatar sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: alpha(item.color, 0.1), mb: 1.5 }}><item.icon size={16} color={item.color} /></Avatar>
-                <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary" }}>{item.label}</Typography>
-                <Typography variant="caption" sx={{ color: "text.disabled" }}>Generate</Typography>
+                <Avatar sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: alpha(item.color, 0.1), mb: 1.5 }}>
+                  <item.icon size={16} color={item.color} />
+                </Avatar>
+                <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary", lineHeight: 1.3 }}>{item.label}</Typography>
+                <Typography variant="caption" sx={{ color: "text.disabled" }}>{item.desc}</Typography>
               </CardContent>
             </StyledCard>
           </Grid>
         ))}
       </Grid>
+
+      {/* Report Preview Card */}
       <StyledCard>
-        <CardContent sx={{ p: 3, "&:last-child": { pb: 3 } }}>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3, pb: 2.5, borderBottom: `1px solid ${C.border}` }}>
+        <CardContent sx={{ p: { xs: 2, md: 3 }, "&:last-child": { pb: { xs: 2, md: 3 } } }}>
+          <Box sx={{ display: "flex", alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", sm: "row" }, gap: 2, mb: 3, pb: 2.5, borderBottom: `1px solid ${C.border}` }}>
             <Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5 }}><BadgeChip type="Monthly" /><Typography variant="caption" sx={{ color: "text.disabled" }}>{latestReport ? `Generated ${latestReport.date}` : "No reports yet"}</Typography></Box>
-              <Typography variant="h5" sx={{ fontWeight: 700, color: "text.primary" }}>{latestReport ? latestReport.name : "Energy Management Report"}</Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 0.5, flexWrap: "wrap" }}>
+                <BadgeChip type="Monthly" />
+                <Typography variant="caption" sx={{ color: "text.disabled" }}>
+                  {latestReport ? `Generated ${latestReport.date}` : "No reports yet"}
+                </Typography>
+              </Box>
+              <Typography variant="h5" sx={{ fontWeight: 700, color: "text.primary", fontSize: { xs: "1.1rem", md: "1.5rem" } }}>
+                {latestReport ? latestReport.name : "Energy Management Report"}
+              </Typography>
               <Typography variant="caption" sx={{ color: "text.disabled" }}>EnergyIQ Hostel Platform · Data from MongoDB</Typography>
             </Box>
-            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")} sx={{ fontSize: "0.75rem" }}>Download PDF</Button>
+            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")} sx={{ fontSize: "0.75rem", flexShrink: 0 }}>Download PDF</Button>
           </Box>
+
+          {/* KPI Summary */}
           <Grid container spacing={2} sx={{ mb: 3 }}>
             {[
-              { label: "Total Consumption", value: `${totalKwh.toLocaleString()} kWh` },
-              { label: "Total Bill", value: `₹${totalBill.toLocaleString()}` },
-              { label: "Avg Monthly kWh", value: `${kpi.avgKwh.toLocaleString()} kWh` },
-              { label: "Carbon Footprint", value: `${carbon.toLocaleString()} kg CO₂` },
+              { label: "Total Consumption", value: `${totalKwh.toLocaleString()} kWh`, icon: Zap, color: C.primary },
+              { label: "Total Bill", value: `₹${totalBill.toLocaleString()}`, icon: DollarSign, color: C.secondary },
+              { label: "Avg Monthly kWh", value: `${kpi.avgKwh.toLocaleString()} kWh`, icon: Activity, color: C.success },
+              { label: "Carbon Footprint", value: `${carbon.toLocaleString()} kg CO₂`, icon: Leaf, color: C.warning },
             ].map(s => (
               <Grid size={{ xs: 6, md: 3 }} key={s.label}>
-                <Box sx={{ p: 2, borderRadius: 2, bgcolor: alpha(C.primary, 0.03) }}>
-                  <Typography variant="caption" sx={{ color: "text.secondary", mb: 0.5 }}>{s.label}</Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: "text.primary" }}>{s.value}</Typography>
+                <Box sx={{ p: { xs: 1.5, md: 2 }, borderRadius: 2, bgcolor: alpha(s.color, 0.05), border: `1px solid ${alpha(s.color, 0.12)}` }}>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.75, mb: 0.75 }}>
+                    <s.icon size={14} color={s.color} />
+                    <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }}>{s.label}</Typography>
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: "text.primary", fontSize: { xs: "0.95rem", md: "1.25rem" } }}>{s.value}</Typography>
                 </Box>
               </Grid>
             ))}
           </Grid>
-          <ResponsiveContainer width="100%" height={160}>
-            <AreaChart data={monthlyData.slice(-4)} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-              <defs><linearGradient id="rpGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor={C.primary} stopOpacity={0.12} /><stop offset="95%" stopColor={C.primary} stopOpacity={0} /></linearGradient></defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F3F0E8" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
-              <RechartsTooltip content={<ChartTooltip />} />
-              <Area type="monotone" dataKey="consumption" name="kWh" stroke={C.primary} strokeWidth={2} fill="url(#rpGrad)" dot={false} />
-            </AreaChart>
-          </ResponsiveContainer>
+
+          {/* Chart */}
+          {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}><CircularProgress size={28} /></Box>
+          ) : monthlyData.length === 0 ? (
+            <Box sx={{ textAlign: "center", py: 4 }}><Typography variant="body2" sx={{ color: "text.disabled" }}>No monthly data available yet.</Typography></Box>
+          ) : (
+            <ResponsiveContainer width="100%" height={180}>
+              <AreaChart data={monthlyData.slice(-6)} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="rpGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.primary} stopOpacity={0.12} />
+                    <stop offset="95%" stopColor={C.primary} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#F3F0E8" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: C.textMuted }} axisLine={false} tickLine={false} />
+                <RechartsTooltip content={<ChartTooltip />} />
+                <Area type="monotone" dataKey="consumption" name="kWh" stroke={C.primary} strokeWidth={2} fill="url(#rpGrad)" dot={false} />
+              </AreaChart>
+            </ResponsiveContainer>
+          )}
         </CardContent>
       </StyledCard>
+
+      {/* Recent Reports Table */}
       <StyledCard>
-        <CardContent sx={{ p: 2.5, "&:last-child": { pb: 2.5 } }}>
-          <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>Recent Reports</Typography>
-          <TableContainer>
-            <Table size="small">
-              <TableHead><TableRow><TableCell>Report Name</TableCell><TableCell>Type</TableCell><TableCell>Generated</TableCell><TableCell>kWh</TableCell><TableCell>Status</TableCell><TableCell>Actions</TableCell></TableRow></TableHead>
+        <CardContent sx={{ p: { xs: 2, md: 2.5 }, "&:last-child": { pb: { xs: 2, md: 2.5 } } }}>
+          <Box sx={{ display: "flex", alignItems: { xs: "flex-start", sm: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", sm: "row" }, gap: 2, mb: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>Recent Reports</Typography>
+            <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", width: { xs: "100%", sm: "auto" } }}>
+              <TextField
+                size="small"
+                placeholder="Search reports..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                sx={{ "& .MuiOutlinedInput-root": { bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 34, width: { xs: "100%", sm: 180 } } }}
+                slotProps={{ input: { startAdornment: <InputAdornment position="start"><Search size={13} color={C.textMuted} /></InputAdornment> } }}
+              />
+              <FormControl size="small" sx={{ minWidth: 120 }}>
+                <Select value={typeFilter} onChange={e => setTypeFilter(e.target.value)} sx={{ bgcolor: C.inputBg, borderRadius: 2, fontSize: "0.8125rem", height: 34 }}>
+                  {reportTypes.map(t => <MenuItem key={t} value={t} sx={{ fontSize: "0.8125rem" }}>{t}</MenuItem>)}
+                </Select>
+              </FormControl>
+              <Button variant="outlined" size="small" startIcon={<Download size={13} />} onClick={exportCSV} sx={{ fontSize: "0.75rem", height: 34, whiteSpace: "nowrap" }}>Export CSV</Button>
+            </Box>
+          </Box>
+
+          <TableContainer sx={{ overflowX: "auto" }}>
+            <Table size="small" sx={{ minWidth: 560 }}>
+              <TableHead>
+                <TableRow sx={{ "& .MuiTableCell-head": { fontWeight: 600, fontSize: "0.75rem", color: "text.secondary", bgcolor: alpha(C.primary, 0.03), whiteSpace: "nowrap" } }}>
+                  <TableCell>Report Name</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Generated</TableCell>
+                  <TableCell>kWh</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
-                {reports.length === 0 && <TableRow><TableCell colSpan={6} sx={{ textAlign: "center", py: 4 }}><Typography variant="body2" sx={{ color: "text.disabled" }}>No prediction reports yet. Run a prediction to generate reports.</Typography></TableCell></TableRow>}
-                {reports.map(r => (
-                  <TableRow key={r.id} hover>
-                    <TableCell><Typography variant="body2" sx={{ fontWeight: 500 }}>{r.name}</Typography></TableCell>
+                {loading && (
+                  <TableRow><TableCell colSpan={6} sx={{ textAlign: "center", py: 4 }}><CircularProgress size={24} /></TableCell></TableRow>
+                )}
+                {!loading && filteredReports.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={6} sx={{ textAlign: "center", py: 5 }}>
+                      <Avatar sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: alpha(C.primary, 0.06), mx: "auto", mb: 1.5 }}><FileText size={20} color={C.textMuted} /></Avatar>
+                      <Typography variant="body2" sx={{ color: "text.disabled", fontWeight: 500 }}>
+                        {search || typeFilter !== "All" ? "No reports match your filters." : "No prediction reports yet. Run a prediction to generate reports."}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+                {!loading && filteredReports.map(r => (
+                  <TableRow key={r.id} hover sx={{ "& .MuiTableCell-root": { py: 1.25 } }}>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: "text.primary", whiteSpace: "nowrap" }}>{r.name}</Typography>
+                    </TableCell>
                     <TableCell><BadgeChip type={r.type} /></TableCell>
-                    <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.date}</Typography></TableCell>
+                    <TableCell><Typography variant="caption" sx={{ color: "text.secondary", whiteSpace: "nowrap" }}>{r.date}</Typography></TableCell>
                     <TableCell><Typography variant="caption" sx={{ color: "text.secondary" }}>{r.kwh?.toLocaleString() ?? "—"}</Typography></TableCell>
                     <TableCell><BadgeChip type={r.status} /></TableCell>
-                    <TableCell><Box sx={{ display: "flex", gap: 0.5 }}><IconButton size="small" onClick={() => alert("PDF export coming soon.")} sx={{ color: C.textMuted }}><Download size={14} /></IconButton><IconButton size="small" onClick={() => alert("Email report feature requires email configuration.")} sx={{ color: C.textMuted }}><Mail size={14} /></IconButton><IconButton size="small" onClick={() => window.print()} sx={{ color: C.textMuted }}><Printer size={14} /></IconButton></Box></TableCell>
+                    <TableCell align="right">
+                      <Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
+                        <Tooltip title="Download PDF">
+                          <IconButton size="small" onClick={() => alert("PDF export coming soon.")} sx={{ color: C.textMuted, "&:hover": { color: C.primary } }}><Download size={14} /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Email Report">
+                          <IconButton size="small" onClick={() => alert("Email report feature requires email configuration.")} sx={{ color: C.textMuted, "&:hover": { color: C.info } }}><Mail size={14} /></IconButton>
+                        </Tooltip>
+                        <Tooltip title="Print">
+                          <IconButton size="small" onClick={() => window.print()} sx={{ color: C.textMuted, "&:hover": { color: C.success } }}><Printer size={14} /></IconButton>
+                        </Tooltip>
+                      </Box>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
+
+          {filteredReports.length > 0 && (
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mt: 2, pt: 1.5, borderTop: `1px solid ${C.border}` }}>
+              <Typography variant="caption" sx={{ color: "text.disabled" }}>
+                Showing {filteredReports.length} of {reports.length} report{reports.length !== 1 ? "s" : ""}
+              </Typography>
+              <Button size="small" startIcon={<Download size={13} />} onClick={exportCSV} sx={{ fontSize: "0.75rem", color: C.primary, textTransform: "none" }}>Export all as CSV</Button>
+            </Box>
+          )}
         </CardContent>
       </StyledCard>
     </Box>
