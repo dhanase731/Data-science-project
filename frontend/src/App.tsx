@@ -841,6 +841,8 @@ function ReportsPage() {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [toast, setToast] = useState("");
+  const notify = (msg: string) => setToast(msg);
 
   const loadData = () => {
     setLoading(true);
@@ -889,6 +891,15 @@ function ReportsPage() {
 
   return (
     <Box className="page-enter" sx={{ p: { xs: 2, md: 3 }, display: "flex", flexDirection: "column", gap: 3 }}>
+      {/* Toast */}
+      {toast && (
+        <Box sx={{ position: "fixed", bottom: 24, left: "50%", transform: "translateX(-50%)", zIndex: 9999, minWidth: 280, maxWidth: 420 }}>
+          <Paper elevation={6} sx={{ px: 3, py: 1.5, borderRadius: 2, bgcolor: C.primary, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+            <Typography variant="body2" sx={{ color: "white", fontWeight: 500 }}>{toast}</Typography>
+            <IconButton size="small" onClick={() => setToast("")} sx={{ color: "white", p: 0.25 }}><X size={14} /></IconButton>
+          </Paper>
+        </Box>
+      )}
       {/* Header */}
       <Box sx={{ display: "flex", alignItems: { xs: "flex-start", md: "center" }, justifyContent: "space-between", flexDirection: { xs: "column", md: "row" }, gap: 2 }}>
         <Box>
@@ -898,8 +909,8 @@ function ReportsPage() {
         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
           <Button variant="outlined" size="small" startIcon={<RefreshCw size={14} />} onClick={loadData} sx={{ fontSize: "0.75rem" }}>Refresh</Button>
           <Button variant="outlined" size="small" startIcon={<Printer size={14} />} onClick={() => window.print()} sx={{ fontSize: "0.75rem" }}>Print</Button>
-          <Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => alert("Email report feature requires email configuration.")} sx={{ fontSize: "0.75rem" }}>Email Report</Button>
-          <GradientButton size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")}>Download PDF</GradientButton>
+          <Button variant="outlined" size="small" startIcon={<Mail size={14} />} onClick={() => notify("Email report feature requires email configuration. Coming soon.")} sx={{ fontSize: "0.75rem" }}>Email Report</Button>
+          <GradientButton size="small" startIcon={<Download size={14} />} onClick={() => notify("PDF export feature coming soon.")}>Download PDF</GradientButton>
         </Box>
       </Box>
 
@@ -908,7 +919,7 @@ function ReportsPage() {
         {reportTypeCards.map(item => (
           <Grid size={{ xs: 6, sm: 4, md: 4, lg: "auto" }} key={item.label} sx={{ flexGrow: 1 }}>
             <StyledCard
-              onClick={() => alert(`Generating ${item.label}...\nThis feature will be available soon.`)}
+              onClick={() => notify(`${item.label} generation coming soon.`)}
               sx={{ cursor: "pointer", height: "100%", "&:hover": { borderColor: item.color, transform: "translateY(-2px)" } }}
             >
               <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
@@ -939,7 +950,7 @@ function ReportsPage() {
               </Typography>
               <Typography variant="caption" sx={{ color: "text.disabled" }}>EnergyIQ Hostel Platform · Data from MongoDB</Typography>
             </Box>
-            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => alert("PDF export feature coming soon.")} sx={{ fontSize: "0.75rem", flexShrink: 0 }}>Download PDF</Button>
+            <Button variant="outlined" size="small" startIcon={<Download size={14} />} onClick={() => notify("PDF export feature coming soon.")} sx={{ fontSize: "0.75rem", flexShrink: 0 }}>Download PDF</Button>
           </Box>
 
           {/* KPI Summary */}
@@ -1048,10 +1059,10 @@ function ReportsPage() {
                     <TableCell align="right">
                       <Box sx={{ display: "flex", gap: 0.5, justifyContent: "flex-end" }}>
                         <Tooltip title="Download PDF">
-                          <IconButton size="small" onClick={() => alert("PDF export coming soon.")} sx={{ color: C.textMuted, "&:hover": { color: C.primary } }}><Download size={14} /></IconButton>
+                          <IconButton size="small" onClick={() => notify("PDF export coming soon.")} sx={{ color: C.textMuted, "&:hover": { color: C.primary } }}><Download size={14} /></IconButton>
                         </Tooltip>
                         <Tooltip title="Email Report">
-                          <IconButton size="small" onClick={() => alert("Email report feature requires email configuration.")} sx={{ color: C.textMuted, "&:hover": { color: C.info } }}><Mail size={14} /></IconButton>
+                          <IconButton size="small" onClick={() => notify("Email report feature requires email configuration. Coming soon.")} sx={{ color: C.textMuted, "&:hover": { color: C.info } }}><Mail size={14} /></IconButton>
                         </Tooltip>
                         <Tooltip title="Print">
                           <IconButton size="small" onClick={() => window.print()} sx={{ color: C.textMuted, "&:hover": { color: C.success } }}><Printer size={14} /></IconButton>
