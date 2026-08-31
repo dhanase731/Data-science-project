@@ -4,29 +4,61 @@
 @import '@fontsource/inter/600.css';
 @import '@fontsource/inter/700.css';
 
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 0px !important;
+}
+
+:root {
+  --ms-primary: #0078D4;
+  --ms-primary-hover: #106EBE;
+  --ms-primary-dark: #005A9E;
+  --ms-primary-subtle: #EFF6FC;
+  --ms-bg: #F3F2F1;
+  --ms-surface: #FFFFFF;
+  --ms-border: #EDEBE9;
+  --ms-border-dark: #E1DFDD;
+  --ms-text-primary: #323130;
+  --ms-text-secondary: #605E5C;
+  --ms-excel-green: #107C41;
+  --ms-copilot-purple: #5C2D91;
+  --ms-warning-amber: #D83B01;
+  --ms-error-red: #D13438;
+}
 
 body {
   margin: 0;
-  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F1F5F9;
+  background-color: #F3F2F1;
+  color: #323130;
+  overflow-x: hidden;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
+/* Microsoft Fluent Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F2F1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8C6C4;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A19F9D;
+}
+
+/* Transitions and animations */
+@keyframes msFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes spin {
@@ -34,13 +66,34 @@ body {
 }
 
 .page-enter {
-  animation: fadeUp 0.22s ease-out both;
-}
-
-.slide-in {
-  animation: scaleIn 0.2s ease-out both;
+  animation: msFadeIn 0.15s ease-out both;
 }
 
 .spin {
   animation: spin 0.8s linear infinite;
 }
+
+/* Fluent Command Ribbon & Toolbar styles */
+.ms-command-bar {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-bottom: 1px solid #EDEBE9;
+  padding: 4px 16px;
+  min-height: 44px;
+}
+
+.ms-sharp-card {
+  border-radius: 0px !important;
+  border: 1px solid #EDEBE9;
+  background: #FFFFFF;
+  box-shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.08), 0 0.3px 0.9px 0 rgba(0, 0, 0, 0.04);
+}
+
+.ms-sharp-btn {
+  border-radius: 0px !important;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 0.8125rem;
+}
+
