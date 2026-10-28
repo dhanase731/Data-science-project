@@ -1060,7 +1060,16 @@ function DashboardPage({ setPage, onOpenCopilot }: { setPage: (p: Page) => void;
     setLoading(true);
     fetch(`${API}/dashboard`, { headers: authHeaders() })
       .then((r) => r.json())
-      .then(setData)
+      .then((d) => {
+        if (d && Array.isArray(d.monthly)) {
+          d.monthly = d.monthly.map((m: any) => ({
+            ...m,
+            consumption: m.consumption || 0,
+            predicted: m.predicted || m.consumption || 0,
+          }));
+        }
+        setData(d);
+      })
       .catch(() => {
         setData({
           monthly: [
@@ -1566,22 +1575,59 @@ function PredictionPage({ onOpenCopilot }: { onOpenCopilot: () => void }) {
     if (e) e.preventDefault();
     setLoading(true);
     try {
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const currentMonth = monthNames[new Date().getMonth()];
       const res = await fetch(`${API}/predict`, {
         method: "POST",
         headers: authHeaders(),
         body: JSON.stringify({
-          hostel_block: block,
-          occupancy,
-          temperature: temp,
+          hostel: block,
+          month: currentMonth,
           season,
-          ac_hours: acHours,
-          solar_kwh: solarYield,
-          exam_season: isExamMonth ? 1 : 0,
+          rooms: 120,
+          students: occupancy,
+          occupancy: Math.min(100, Math.round((occupancy / 480) * 100)),
+          fans: 240,
+          lights: 360,
+          ac_units: acHours * 6,
+          temperature: temp,
+          humidity: 65,
+          water: 1200,
+          kitchen: 8,
+          laundry: 6,
+          solar: solarYield,
+          tariff: 4.5,
+          peak_load: 180,
+          building_age: 10,
+          generator_hours: 3,
+          power_outage_hours: 2,
+          urban: 1,
         }),
       });
       const data = await res.json();
-      if (res.ok && data.predicted_kwh) {
-        setPredictionResult(data);
+      if (res.ok && data.kwh) {
+        setPredictionResult({
+          predicted_kwh: data.kwh,
+          estimated_bill: data.bill,
+          carbon_emissions: (data.carbon / 1000).toFixed(2),
+          confidence: `${data.confidence}%`,
+          efficiency: data.efficiency,
+          trend: data.trend,
+        });
+        setHistory((prev) => [
+          {
+            id: `P-${1050 + prev.length}`,
+            block,
+            occupancy,
+            temp,
+            season,
+            predictedKwh: data.kwh,
+            cost: data.bill,
+            carbon: (data.carbon / 1000).toFixed(2),
+            status: "Verified",
+          },
+          ...prev,
+        ]);
       } else {
         throw new Error();
       }

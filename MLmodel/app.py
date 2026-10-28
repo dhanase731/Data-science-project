@@ -846,13 +846,16 @@ def dashboard():
     monthly = []
     for m in MONTH_ORDER:
         if m in dataset_monthly:
+            base = dataset_monthly[m]["consumption"]
+            predicted = pred_map[m]["kwh"] if m in pred_map else round(base * 0.97)
             entry = {
                 "month": m,
-                "consumption": dataset_monthly[m]["consumption"],
+                "consumption": base,
                 "bill": dataset_monthly[m]["bill"],
-                # predicted = user ML prediction if available, else model-estimated from dataset
-                "predicted": pred_map[m]["kwh"] if m in pred_map else round(dataset_monthly[m]["consumption"] * 0.97),
-                "carbon": pred_map[m]["carbon"] if m in pred_map else round(dataset_monthly[m]["consumption"] * CARBON_FACTOR),
+                "predicted": predicted,
+                "carbon": pred_map[m]["carbon"] if m in pred_map else round(base * CARBON_FACTOR),
+                "ciUpper": round(predicted * 1.035),
+                "ciLower": round(predicted * 0.965),
             }
             monthly.append(entry)
 
